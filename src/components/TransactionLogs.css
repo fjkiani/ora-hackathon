@@ -1,0 +1,84 @@
+.transaction-logs-container {
+  background-color: #ffffff;
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.logs-description {
+  color: #555555;
+  margin-bottom: 1.5rem;
+}
+
+.transaction-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.transaction-item {
+  background-color: #f5f7fa;
+  border-radius: 6px;
+  padding: 1rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.transaction-item:hover {
+  background-color: #e2e8f0;
+}
+
+.transaction-item.expanded {
+  background-color: #e2e8f0;
+}
+
+.transaction-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.transaction-type {
+  font-weight: 500;
+  color: #3498db;
+}
+
+.transaction-time {
+  color: #7f8c8d;
+  font-size: 0.9rem;
+}
+
+.transaction-details {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid #1a1b1f;
+}
+
+.detail-row {
+  display: flex;
+  margin-bottom: 0.5rem;
+}
+
+.detail-label {
+  width: 150px;
+  color: #7f8c8d;
+}
+
+.detail-value {
+  color: #555555;
+  word-break: break-all;
+}
+
+.status-confirmed {
+  color: #2ecc71;
+}
+
+.logs-note {
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid #2c2d33;
+  color: #7f8c8d;
+  font-size: 0.9rem;
+} 

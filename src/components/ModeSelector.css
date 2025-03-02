@@ -1,0 +1,59 @@
+.mode-selector-container {
+  background-color: #ffffff;
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.mode-selector {
+  display: flex;
+  gap: 1rem;
+  margin: 1rem 0;
+}
+
+.mode-button {
+  padding: 0.75rem 1.5rem;
+  border: 1px solid #3498db;
+  background-color: transparent;
+  color: #3498db;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.2s;
+}
+
+.mode-button:hover {
+  background-color: rgba(52, 152, 219, 0.1);
+}
+
+.mode-button.active {
+  background-color: #3498db;
+  color: white;
+}
+
+.mode-description {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid #2c2d33;
+}
+
+.mode-description h4 {
+  color: #3498db;
+  margin-bottom: 0.5rem;
+}
+
+.mode-description p {
+  margin-bottom: 1rem;
+  color: #555555;
+}
+
+.mode-description ul {
+  padding-left: 1.5rem;
+  color: #555555;
+}
+
+.mode-description li {
+  margin-bottom: 0.5rem;
+} 

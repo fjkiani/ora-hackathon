@@ -1,0 +1,149 @@
+.agent-creation-container {
+  background-color: #ffffff;
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.agent-form {
+  margin-top: 1.5rem;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: #555555;
+  font-weight: 500;
+}
+
+.form-group input, 
+.form-group select, 
+.form-group textarea {
+  width: 100%;
+  padding: 0.75rem;
+  border-radius: 6px;
+  border: 1px solid #e2e8f0;
+  background-color: #f5f7fa;
+  color: #333333;
+  font-size: 1rem;
+}
+
+.form-group textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+.protocol-input-group {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.protocol-input-group button {
+  padding: 0.75rem 1.5rem;
+  background-color: #3498db;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.protocol-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.protocol-tag {
+  background-color: #3498db;
+  color: white;
+  padding: 0.5rem 0.75rem;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.remove-tag {
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+.create-agent-button {
+  width: 100%;
+  padding: 1rem;
+  background-color: #2ecc71;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 1rem;
+  transition: background-color 0.2s;
+}
+
+.create-agent-button:hover:not(:disabled) {
+  background-color: #27ae60;
+}
+
+.create-agent-button:disabled {
+  background-color: #95a5a6;
+  cursor: not-allowed;
+}
+
+.agent-created {
+  text-align: center;
+  padding: 2rem 0;
+}
+
+.success-icon {
+  font-size: 3rem;
+  color: #2ecc71;
+  margin-bottom: 1rem;
+}
+
+.agent-details {
+  margin: 2rem 0;
+  text-align: left;
+  background-color: #f5f7fa;
+  padding: 1.5rem;
+  border-radius: 8px;
+}
+
+.agent-detail-row {
+  display: flex;
+  margin-bottom: 0.75rem;
+}
+
+.agent-detail-row .detail-label {
+  width: 120px;
+  color: #7f8c8d;
+}
+
+.agent-detail-row .detail-value {
+  color: #555555;
+  flex: 1;
+}
+
+.agent-note {
+  color: #7f8c8d;
+  margin-bottom: 2rem;
+}
+
+.reset-button {
+  padding: 0.75rem 1.5rem;
+  background-color: #3498db;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+} 
