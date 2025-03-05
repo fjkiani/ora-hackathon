@@ -63,4 +63,72 @@ section h2 {
   background-color: #3498db;
   color: white;
   border-color: #3498db;
+}
+
+/* ORA Integration Tab Styling */
+.ora-integration-container {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  width: 100%;
+}
+
+.ora-section {
+  width: 100%;
+}
+
+.ora-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+}
+
+.ora-grid-item {
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+}
+
+/* Responsive adjustments for ORA Integration */
+@media (max-width: 1200px) {
+  .ora-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Pool Selector Styling */
+.pool-selector-container {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.pool-selector-container label {
+  font-weight: 500;
+  color: #4b5563;
+}
+
+.pool-selector {
+  padding: 8px 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  background-color: white;
+  font-size: 14px;
+  color: #111827;
+  min-width: 150px;
+}
+
+.pool-selector:focus {
+  outline: none;
+  border-color: #6366f1;
+  box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.2);
+}
+
+.framework-container {
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  padding: 2rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 } 

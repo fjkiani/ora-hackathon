@@ -1,8 +1,9 @@
 import React, { useState, useRef, useEffect } from 'react';
 import './ClaudeAssistant.css';
 import { getTokenData, getProtocolData, getWalletBalances, getNftData } from '../services/defiDataService';
+import axios from 'axios';
 
-function ClaudeAssistant() {
+function ClaudeAssistant({ initialQuery = '', onClearQuery = () => {} }) {
   const [messages, setMessages] = useState([
     {
       role: 'assistant',
@@ -19,7 +20,82 @@ function ClaudeAssistant() {
   });
   const messagesEndRef = useRef(null);
   const apiKey = process.env.REACT_APP_ANTHROPIC_API_KEY;
-  const [useRealApis, setUseRealApis] = useState(false);
+  const [useRealApis, setUseRealApis] = useState(true);
+  const [apiStatus, setApiStatus] = useState({
+    loading: false,
+    error: null,
+    success: false
+  });
+
+  // Handle initialQuery from props
+  useEffect(() => {
+    console.log("==========================================");
+    console.log("initialQuery changed:", initialQuery);
+    console.log("initialQuery type:", typeof initialQuery);
+    console.log("initialQuery length:", initialQuery ? initialQuery.length : 0);
+    console.log("initialQuery trimmed length:", initialQuery ? initialQuery.trim().length : 0);
+    console.log("initialQuery content:", JSON.stringify(initialQuery));
+    console.log("==========================================");
+    
+    if (initialQuery && initialQuery.trim() !== '') {
+      console.log("Processing initialQuery:", initialQuery);
+      
+      // Extract pool name for better debugging
+      const poolNameMatch = initialQuery.match(/in\s+([^.?!]+)/i);
+      const poolName = poolNameMatch ? poolNameMatch[1].trim() : "unknown pool";
+      console.log("Extracted pool name from initialQuery:", poolName);
+      
+      // Check for risk assessment query type
+      const queryType = 
+        initialQuery.toLowerCase().includes('smart contract risk') ? 'Smart Contract Risk' :
+        initialQuery.toLowerCase().includes('economic risk') ? 'Economic Risk' :
+        initialQuery.toLowerCase().includes('centralization risk') ? 'Centralization Risk' :
+        'General Query';
+      console.log("Query type detected:", queryType);
+      
+      console.log("Setting input to initialQuery");
+      setInput(initialQuery);
+      
+      // Submit the query automatically
+      const submitQuery = async () => {
+        console.log("Inside submitQuery function");
+        // Add user message
+        const userMessage = { role: 'user', content: initialQuery };
+        console.log("Adding user message:", userMessage);
+        setMessages(prev => [...prev, userMessage]);
+        setIsTyping(true);
+        
+        try {
+          // Get Claude's response
+          console.log("Attempting to get Claude response");
+          const claudeResponse = await getClaudeResponse(initialQuery);
+          console.log("Claude response received:", claudeResponse.substring(0, 50) + "...");
+          setMessages(prev => [...prev, { role: 'assistant', content: claudeResponse }]);
+        } catch (error) {
+          console.error("Failed to get Claude response:", error);
+          // Use mock response as fallback
+          console.log("Falling back to mock response");
+          const mockResponse = getMockResponse(initialQuery);
+          console.log("Mock response generated:", mockResponse.substring(0, 50) + "...");
+          setMessages(prev => [...prev, { 
+            role: 'assistant', 
+            content: mockResponse + "\n\n(Note: This is a mock response due to API connection issues.)" 
+          }]);
+        } finally {
+          setIsTyping(false);
+          setInput(''); // Clear the input field after processing
+          console.log("Input field cleared");
+        }
+        
+        // Clear the initialQuery after processing
+        console.log("Calling onClearQuery to clear initialQuery");
+        onClearQuery();
+      };
+      
+      console.log("Calling submitQuery function");
+      submitQuery();
+    }
+  }, [initialQuery, onClearQuery]);
 
   // Fetch initial DeFi data
   useEffect(() => {
@@ -66,33 +142,19 @@ function ClaudeAssistant() {
     try {
       console.log("Testing Claude API with key:", apiKey.substring(0, 10) + "...");
       
-      const response = await fetch('https://api.anthropic.com/v1/messages', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'x-api-key': apiKey,
-          'anthropic-version': '2023-06-01'
-        },
-        body: JSON.stringify({
-          model: 'claude-3-sonnet-20240229',
-          max_tokens: 100,
-          messages: [
-            {
-              role: 'user',
-              content: 'Hello, can you hear me? This is a test.'
-            }
-          ]
-        })
+      const response = await axios.post('http://localhost:3001/api/claude', {
+        model: 'claude-3-haiku-20240307',
+        max_tokens: 100,
+        system: 'You are a helpful assistant.',
+        messages: [
+          {
+            role: 'user',
+            content: 'Hello, can you hear me? This is a test.'
+          }
+        ]
       });
       
-      if (!response.ok) {
-        const errorText = await response.text();
-        console.error("Claude API test failed:", errorText);
-        return false;
-      }
-      
-      const data = await response.json();
-      console.log("Claude API test successful:", data);
+      console.log("Claude API test successful:", response.data);
       return true;
     } catch (error) {
       console.error("Claude API test error:", error);
@@ -100,15 +162,135 @@ function ClaudeAssistant() {
     }
   };
 
-  // Update the initial useEffect to call this test
+  // Add this function to test the server connection
+  const testServerConnection = async () => {
+    try {
+      const response = await axios.get('http://localhost:3001/api/health');
+      console.log("Server health check:", response.data);
+      return response.data.status === 'ok';
+    } catch (error) {
+      console.error("Server connection test failed:", error);
+      return false;
+    }
+  };
+
+  // Add this function for direct API testing
+  const testDirectApiCall = async () => {
+    try {
+      const response = await axios.post('https://api.anthropic.com/v1/messages', {
+        model: 'claude-3-haiku-20240307',
+        max_tokens: 100,
+        system: 'You are a helpful assistant.',
+        messages: [
+          {
+            role: 'user',
+            content: 'Hello, can you hear me? This is a test.'
+          }
+        ]
+      }, {
+        headers: {
+          'Content-Type': 'application/json',
+          'x-api-key': apiKey,
+          'anthropic-version': '2023-06-01'
+        }
+      });
+      
+      console.log("Direct API call successful:", response.data);
+      return true;
+    } catch (error) {
+      console.error("Direct API call error:", error);
+      return false;
+    }
+  };
+
+  // Add this function to check API status
+  const checkApiStatus = async () => {
+    setApiStatus({
+      loading: true,
+      error: null,
+      success: false
+    });
+    
+    try {
+      // Check server connection first
+      let serverConnected = false;
+      try {
+        const serverResponse = await axios.get('http://localhost:3001/api/health');
+        serverConnected = serverResponse.data.status === 'ok';
+      } catch (error) {
+        console.error("Server connection failed:", error);
+        setApiStatus({
+          loading: false,
+          error: "Cannot connect to proxy server. Make sure it's running on http://localhost:3001",
+          success: false
+        });
+        return false;
+      }
+      
+      // If server is connected, test the API key
+      if (serverConnected && apiKey) {
+        try {
+          // Test API key via proxy server
+          const testResponse = await axios.post('http://localhost:3001/api/claude/test', {
+            apiKey: apiKey
+          });
+          
+          const apiKeyValid = testResponse.data.success;
+          
+          setApiStatus({
+            loading: false,
+            error: apiKeyValid ? null : "API key validation failed. Check your API key.",
+            success: apiKeyValid
+          });
+          
+          return apiKeyValid;
+        } catch (error) {
+          console.error("API key validation failed:", error);
+          setApiStatus({
+            loading: false,
+            error: "API key validation failed: " + (error.message || "Unknown error"),
+            success: false
+          });
+          return false;
+        }
+      }
+      
+      return false;
+    } catch (error) {
+      console.error("API status check error:", error);
+      
+      setApiStatus({
+        loading: false,
+        error: "Error checking API status: " + (error.message || "Unknown error"),
+        success: false
+      });
+      
+      return false;
+    }
+  };
+
+  // Call this in your initial useEffect
   useEffect(() => {
     console.log("Anthropic API Key available:", !!apiKey);
     console.log("Covalent API Key available:", !!process.env.REACT_APP_COVALENT_API_KEY);
+    
+    // Test the server connection
+    testServerConnection().then(success => {
+      console.log("Server connection test result:", success ? "Success" : "Failed");
+    });
     
     // Test the Claude API
     testClaudeAPI().then(success => {
       console.log("Claude API test result:", success ? "Success" : "Failed");
     });
+
+    // Test direct API call
+    testDirectApiCall().then(success => {
+      console.log("Direct API test result:", success ? "Success" : "Failed");
+    });
+
+    // Call this in your useEffect
+    checkApiStatus();
   }, [apiKey]);
 
   // Enhanced Claude API call with real DeFi data
@@ -136,59 +318,47 @@ function ClaudeAssistant() {
       const defiContext = createDefiContext();
       console.log("DeFi context created:", defiContext);
       
-      console.log("Making API call to Claude with API key:", apiKey.substring(0, 10) + "...");
+      const systemPrompt = `You are a helpful DeFi assistant that explains complex DeFi concepts in simple terms. 
+                  Focus on being educational and providing accurate information about blockchain, 
+                  cryptocurrencies, and decentralized finance protocols. When discussing risks, 
+                  be balanced and factual. 
+                  
+                  Here is the latest DeFi data that you can reference:
+                  ${defiContext}`;
       
-      const response = await fetch('https://api.anthropic.com/v1/messages', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'x-api-key': apiKey,
-          'anthropic-version': '2023-06-01'
-        },
-        body: JSON.stringify({
-          model: 'claude-3-sonnet-20240229',
-          max_tokens: 1000,
-          messages: [
-            {
-              role: 'system',
-              content: `You are a helpful DeFi assistant that explains complex DeFi concepts in simple terms. 
-                        Focus on being educational and providing accurate information about blockchain, 
-                        cryptocurrencies, and decentralized finance protocols. When discussing risks, 
-                        be balanced and factual. 
-                        
-                        Here is the latest DeFi data that you can reference:
-                        ${defiContext}`
-            },
-            ...messages.filter(msg => msg.role !== 'system').map(msg => ({
-              role: msg.role,
-              content: msg.content
-            })),
-            {
-              role: 'user',
-              content: query
-            }
-          ]
-        })
+      console.log("Making API call to Claude via proxy server");
+      
+      // Use the proxy server with axios
+      const response = await axios.post('http://localhost:3001/api/claude', {
+        model: 'claude-3-haiku-20240307',
+        max_tokens: 1000,
+        system: systemPrompt,
+        messages: [
+          ...messages.filter(msg => msg.role !== 'system').map(msg => ({
+            role: msg.role,
+            content: msg.content
+          })),
+          {
+            role: 'user',
+            content: query
+          }
+        ]
       });
-
-      if (!response.ok) {
-        const errorText = await response.text();
-        console.error(`API request failed with status ${response.status}:`, errorText);
-        throw new Error(`API request failed with status ${response.status}: ${errorText}`);
-      }
-
-      const data = await response.json();
-      console.log("Claude API response:", data);
+      
+      console.log("Claude API response:", response.data);
       setIsTyping(false);
       
-      if (data.content && data.content[0] && data.content[0].text) {
-        return data.content[0].text;
+      if (response.data.content && response.data.content[0] && response.data.content[0].text) {
+        return response.data.content[0].text;
       } else {
-        console.error("Unexpected API response format:", data);
+        console.error("Unexpected API response format:", response.data);
         throw new Error("Unexpected API response format");
       }
     } catch (error) {
       console.error('Error calling Claude API:', error);
+      console.error('Error details:', error.response?.data || 'No response data');
+      console.error('Error status:', error.response?.status || 'No status code');
+      setIsTyping(false);
       return getMockResponse(query);
     }
   };
@@ -198,6 +368,39 @@ function ClaudeAssistant() {
     const lowerQuery = query.toLowerCase();
     
     try {
+      // Extract pool name if present
+      const poolNameMatch = query.match(/in\s+([^.?!]+)/i);
+      const poolName = poolNameMatch ? poolNameMatch[1].trim() : null;
+      
+      if (poolName) {
+        console.log("Extracted pool name from query:", poolName);
+        
+        // Parse the pool name to get token symbols
+        const tokens = poolName.split('/');
+        if (tokens.length === 2) {
+          const [token0Symbol, token1Symbol] = tokens;
+          
+          // Fetch token data
+          try {
+            const tokenData = await getTokenData([token0Symbol.toLowerCase(), token1Symbol.toLowerCase()]);
+            console.log("Token data fetched:", tokenData);
+            
+            if (tokenData && tokenData.length > 0) {
+              setDefiData(prev => ({
+                ...prev,
+                tokens: {
+                  ...prev.tokens,
+                  [token0Symbol.toLowerCase()]: tokenData.find(t => t.symbol.toLowerCase() === token0Symbol.toLowerCase()),
+                  [token1Symbol.toLowerCase()]: tokenData.find(t => t.symbol.toLowerCase() === token1Symbol.toLowerCase())
+                }
+              }));
+            }
+          } catch (error) {
+            console.error(`Error fetching token data for ${poolName}:`, error);
+          }
+        }
+      }
+      
       // Fetch token-specific data
       if (lowerQuery.includes('ethereum') || lowerQuery.includes('eth')) {
         if (!defiData.tokens['ethereum']) {
@@ -311,9 +514,167 @@ function ClaudeAssistant() {
 
   // Fallback mock responses
   const getMockResponse = (query) => {
-    // Simulate delay
-    setTimeout(() => setIsTyping(false), 1000);
+    console.log("Generating mock response for query:", query);
     
+    // Extract pool name from query if present
+    const poolNameMatch = query.match(/in\s+([^.?!]+)/i);
+    const poolName = poolNameMatch ? poolNameMatch[1].trim() : "this protocol";
+    
+    console.log("Extracted pool name:", poolName);
+    
+    // Special case for BTC/ETH
+    if (poolName.includes("BTC/ETH") && query.toLowerCase().includes('smart contract risk')) {
+      console.log("Generating specific response for BTC/ETH Smart Contract Risk");
+      return `Smart Contract Risk for BTC/ETH is rated as medium risk (5.8/10) because:
+
+1. The BTC/ETH pool smart contracts have been audited by reputable firms like CertiK and PeckShield, which provides some assurance of security.
+
+2. However, several minor vulnerabilities were identified in past audits, though they have been addressed by the development team.
+
+3. The contracts are not fully open-source, making independent verification more difficult for security researchers.
+
+4. The cross-chain nature of the BTC/ETH pool introduces additional complexity and potential attack vectors compared to single-chain pools.
+
+5. While there have been no major hacks of this specific pool, similar cross-chain bridges have experienced exploits in the past.
+
+6. The development team regularly updates the contracts, which introduces both security improvements and new risk vectors.
+
+To mitigate smart contract risk when using the BTC/ETH pool, consider using smaller position sizes, monitoring the protocol's security announcements, and being cautious during contract upgrades.`;
+    }
+    
+    if (poolName.includes("BTC/ETH") && query.toLowerCase().includes('economic risk')) {
+      console.log("Generating specific response for BTC/ETH Economic Risk");
+      return `Economic Risk for BTC/ETH is rated as low risk (3.2/10) because:
+
+1. The pool consists of two major cryptocurrencies (Bitcoin and Ethereum) that have established market presence and liquidity.
+
+2. Both assets have significant market capitalization, reducing the risk of price manipulation compared to smaller tokens.
+
+3. The fee structure of the BTC/ETH pool is designed to be sustainable long-term, generating reliable revenue without excessive costs to users.
+
+4. Historical data shows relatively stable correlation between BTC and ETH during most market conditions, reducing impermanent loss risk compared to more volatile pairs.
+
+5. The pool has maintained consistent liquidity depth even during market downturns, indicating strong user confidence.
+
+6. The economic incentives for liquidity providers are well-balanced, with rewards that compensate for the opportunity cost of capital.
+
+While all DeFi investments carry some level of risk, the BTC/ETH pool's economic design is considered robust compared to many alternatives in the space. The pairing of the two largest cryptocurrencies by market cap provides a relatively balanced risk profile from an economic perspective.`;
+    }
+    
+    if (poolName.includes("BTC/ETH") && query.toLowerCase().includes('centralization risk')) {
+      console.log("Generating specific response for BTC/ETH Centralization Risk");
+      return `Centralization Risk for BTC/ETH is rated as high risk (8.1/10) because:
+
+1. The protocol has admin keys that can modify critical parameters without timelock, creating a central point of control.
+
+2. A small team controls these admin keys, which is contrary to DeFi's trustless principles.
+
+3. The bridge mechanism between Bitcoin and Ethereum relies on centralized validators for cross-chain transactions.
+
+4. Governance is not fully decentralized, with the core team having significant influence over protocol decisions.
+
+5. The custody solution for Bitcoin in this pool introduces additional centralization concerns, as BTC must be wrapped or represented by a proxy token.
+
+6. Emergency pause functions exist that can halt the protocol, and these are controlled by a small group of individuals.
+
+This centralization means users must trust the team to act in the protocol's best interest, which introduces counterparty risk not present in more decentralized protocols. If you're concerned about centralization risk, consider using pools with more decentralized governance structures or those that operate entirely on a single chain.`;
+    }
+    
+    // Special case for ETH/USDC
+    if (poolName.includes("ETH/USDC") && query.toLowerCase().includes('smart contract risk')) {
+      console.log("Generating specific response for ETH/USDC Smart Contract Risk");
+      return `Smart Contract Risk for ETH/USDC is rated as medium risk (5.8/10) because:
+
+1. The ETH/USDC pool smart contracts have been audited by multiple reputable security firms, which provides a good baseline of security.
+
+2. The contracts have been battle-tested in production with significant value locked for an extended period.
+
+3. However, the contracts are not fully open-source in all components, limiting complete independent verification.
+
+4. The integration with USDC, which is a centralized stablecoin, introduces additional dependencies on Circle's infrastructure.
+
+5. The protocol has implemented timelock delays for administrative functions, but some privileged functions still exist.
+
+6. While there have been no direct exploits of this pool, similar pools on other platforms have experienced vulnerabilities.
+
+To mitigate smart contract risk when using the ETH/USDC pool, consider diversifying your liquidity across multiple protocols, monitoring governance proposals that might affect the pool, and staying informed about security updates.`;
+    }
+    
+    if (poolName.includes("ETH/USDC") && query.toLowerCase().includes('economic risk')) {
+      console.log("Generating specific response for ETH/USDC Economic Risk");
+      return `Economic Risk for ETH/USDC is rated as low risk (3.2/10) because:
+
+1. ETH is the native asset of Ethereum with strong market presence and liquidity, while USDC is one of the most widely-used regulated stablecoins.
+
+2. The ETH/USDC pair is one of the most liquid trading pairs in DeFi, reducing the risk of price manipulation.
+
+3. The fee structure is designed to be sustainable long-term, generating reliable revenue for liquidity providers.
+
+4. Impermanent loss risk exists due to ETH price volatility, but this is partially mitigated by trading fees in high-volume pools like ETH/USDC.
+
+5. The pool has maintained consistent liquidity depth even during market downturns, indicating strong user confidence.
+
+6. Both assets have significant market capitalization and institutional adoption, providing stability to the pool.
+
+While all DeFi investments carry some level of risk, the ETH/USDC pool's economic design is considered robust compared to many alternatives in the space. The pairing of Ethereum with a regulated stablecoin provides a relatively balanced risk profile from an economic perspective.`;
+    }
+    
+    if (poolName.includes("ETH/USDC") && query.toLowerCase().includes('centralization risk')) {
+      console.log("Generating specific response for ETH/USDC Centralization Risk");
+      return `Centralization Risk for ETH/USDC is rated as high risk (8.1/10) because:
+
+1. USDC is a centralized stablecoin issued by Circle, which introduces significant counterparty risk.
+
+2. Circle can freeze USDC balances at any time, which could potentially affect the pool's liquidity.
+
+3. The protocol itself has admin keys that can modify certain parameters, creating another layer of centralization.
+
+4. While governance is partially decentralized, the core team and major token holders have significant influence over decisions.
+
+5. The protocol relies on centralized price oracles for certain functions, which could be manipulated or fail.
+
+6. Regulatory actions against Circle or USDC could have cascading effects on the pool's functionality.
+
+This centralization means users must trust both the protocol team and Circle to act in the best interest of users. If you're concerned about centralization risk, consider using pools with more decentralized stablecoins like DAI, or pools on more decentralized networks.`;
+    }
+    
+    // Special case for ORA/USDC
+    if (poolName.includes("ORA/USDC") && query.toLowerCase().includes('economic risk')) {
+      console.log("Generating specific response for ORA/USDC Economic Risk");
+      return `Economic Risk for ORA/USDC is rated as low risk because:
+
+1. The ORA token has a well-designed tokenomics model with controlled emission rates to prevent inflation.
+
+2. The USDC component provides stability as a regulated stablecoin with reliable backing.
+
+3. The liquidity pool has maintained consistent depth, reducing the risk of sudden price impacts.
+
+4. The protocol's fee structure is sustainable, generating reliable revenue without excessive costs to users.
+
+5. The token distribution is relatively decentralized, with no single entity controlling a majority of the supply.
+
+6. The protocol has implemented economic safeguards against market manipulation and flash loan attacks.
+
+While all DeFi investments carry some level of risk, the ORA/USDC pool's economic design is considered robust compared to many alternatives in the space. The combination of a utility token (ORA) with a stable asset (USDC) provides a balanced risk profile from an economic perspective.`;
+    }
+    
+    // Specific responses for risk assessment queries
+    if (query.toLowerCase().includes('smart contract risk')) {
+      return `Smart Contract Risk for ${poolName} is rated as medium risk because:\n\n1. The protocol has been audited by reputable firms like CertiK and PeckShield, which is a positive sign.\n\n2. However, some minor vulnerabilities were identified in past audits, though they have been addressed.\n\n3. The contracts are not fully open-source, making independent verification more difficult.\n\n4. The protocol has experienced no major hacks, but smaller exploits have occurred in the ecosystem.\n\n5. The development team regularly updates the contracts, which introduces both security improvements and new risk vectors.\n\nTo mitigate smart contract risk, consider using smaller position sizes and monitoring the protocol's security announcements.`;
+    }
+    else if (query.toLowerCase().includes('economic risk')) {
+      return `Economic Risk for ${poolName} is rated as low risk because:\n\n1. The protocol has a sustainable economic model with transaction fees supporting the ecosystem.\n\n2. Token emissions have been reduced over time to prevent excessive inflation.\n\n3. The token distribution is relatively fair, with no excessive concentration among whales.\n\n4. The protocol has maintained its economic model through multiple market cycles.\n\n5. Incentives are aligned between users, liquidity providers, and token holders.\n\nWhile economic risks are lower compared to other protocols, market conditions can still impact yields and token value.`;
+    }
+    else if (query.toLowerCase().includes('centralization risk')) {
+      return `Centralization Risk for ${poolName} is rated as high risk because:\n\n1. The protocol has admin keys that can modify critical parameters without timelock.\n\n2. A small team controls these admin keys, creating a central point of failure.\n\n3. While the team has a good track record, this centralized control is contrary to DeFi's trustless principles.\n\n4. Governance is not fully decentralized, with the core team having significant influence over decisions.\n\n5. The protocol runs primarily on Binance Smart Chain, which itself has centralization concerns.\n\nThis centralization means users must trust the team to act in the protocol's best interest, which introduces counterparty risk not present in more decentralized protocols.`;
+    }
+    else if (query.toLowerCase().includes('explain the overall risk assessment') || 
+             query.toLowerCase().includes('overall risk assessment') ||
+             query.toLowerCase().includes('detailed explanation')) {
+      return `The overall risk assessment for ${poolName} shows a medium risk profile (6.5/10) based on several factors:\n\n1. Smart Contract Risk (5.8/10): The protocol has been audited, but some minor issues were identified and not all contracts are fully open-source.\n\n2. Economic Risk (3.2/10): The protocol has a sustainable economic model with reasonable incentives and fair token distribution.\n\n3. Centralization Risk (8.1/10): The protocol has admin keys that can modify critical parameters without timelock, controlled by a small team.\n\n4. Liquidity Risk (4.5/10): The protocol has deep liquidity for major pairs but can experience slippage for smaller tokens.\n\n5. Market Risk (6.2/10): As with all DeFi protocols, market volatility can impact yields and token values.\n\nRecommendations:\n- Limit exposure to 5-10% of your portfolio\n- Monitor governance proposals regularly\n- Set up alerts for unusual activity\n- Diversify across multiple protocols to reduce risk\n\nThis assessment is based on current conditions and should be regularly reviewed as the protocol evolves.`;
+    }
+    
+    // General responses for other queries
     if (query.toLowerCase().includes('what is defi')) {
       return "DeFi (Decentralized Finance) refers to financial applications built on blockchain technology that don't rely on central financial intermediaries. Instead, they use smart contracts on blockchains like Ethereum to create protocols that replicate existing financial services in a more open, interoperable way.";
     } 
@@ -350,21 +711,43 @@ function ClaudeAssistant() {
     e.preventDefault();
     if (!input.trim()) return;
     
+    console.log("Submitting query:", input);
+    console.log("useRealApis:", useRealApis);
+    
     // Add user message
     const userMessage = { role: 'user', content: input };
     setMessages(prev => [...prev, userMessage]);
     setInput('');
     
-    // Get Claude's response
-    const claudeResponse = await getClaudeResponse(input);
-    setMessages(prev => [...prev, { role: 'assistant', content: claudeResponse }]);
+    try {
+      // Get Claude's response
+      const claudeResponse = await getClaudeResponse(input);
+      setMessages(prev => [...prev, { role: 'assistant', content: claudeResponse }]);
+    } catch (error) {
+      console.error("Failed to get Claude response:", error);
+      // Use mock response as fallback
+      const mockResponse = getMockResponse(input);
+      setMessages(prev => [...prev, { 
+        role: 'assistant', 
+        content: mockResponse + "\n\n(Note: This is a mock response due to API connection issues.)" 
+      }]);
+    }
   };
 
   return (
     <div className="claude-assistant-container">
       <div className="assistant-header">
-        <h3>Claude DeFi Assistant</h3>
-        <span className="assistant-subtitle">Powered by Anthropic's Claude with Real-Time DeFi Data</span>
+        <h3>DeFi AI Assistant</h3>
+        <p className="assistant-subtitle">
+          Powered by Claude 3 Haiku
+          {apiStatus.loading ? (
+            <span> (Checking API status...)</span>
+          ) : apiStatus.success ? (
+            <span className="api-status success"> (API Connected)</span>
+          ) : (
+            <span className="api-status error"> (API Disconnected - Using Mock Data)</span>
+          )}
+        </p>
       </div>
       
       <div className="messages-container">
@@ -424,7 +807,7 @@ function ClaudeAssistant() {
             checked={useRealApis} 
             onChange={() => setUseRealApis(!useRealApis)} 
           />
-          Use real API data
+          Use real API data (via proxy server)
         </label>
       </div>
     </div>
