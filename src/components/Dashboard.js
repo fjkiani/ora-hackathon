@@ -7,6 +7,9 @@ import TransactionLogs from './TransactionLogs';
 import AgentCreationInterface from './AgentCreationInterface';
 import ClaudeAssistant from './ClaudeAssistant';
 import ApiTester from './ApiTester';
+import AgentStatusDashboard from './AgentStatusDashboard';
+import ProtocolMonitoringDashboard from './ProtocolMonitoringDashboard';
+import TestComponent from './TestComponent';
 import './Dashboard.css';
 
 function Dashboard() {
@@ -58,6 +61,12 @@ function Dashboard() {
           onClick={() => setActiveTab('ora')}
         >
           ORA Integration
+        </button>
+        <button 
+          className={`tab-button ${activeTab === 'framework' ? 'active' : ''}`}
+          onClick={() => setActiveTab('framework')}
+        >
+          ORA Framework
         </button>
         <button 
           className={`tab-button ${activeTab === 'create' ? 'active' : ''}`}
@@ -149,11 +158,33 @@ function Dashboard() {
       )}
       
       {activeTab === 'ora' && (
-        <>
-          <ModeSelector />
+        <div className="ora-integration-container">
+          <div className="ora-section">
+            <AgentStatusDashboard />
+          </div>
+          
+          <div className="ora-section">
+            <ProtocolMonitoringDashboard />
+          </div>
+          
+          <div className="ora-section ora-grid">
+            <div className="ora-grid-item">
+              <ModeSelector />
+            </div>
+            <div className="ora-grid-item">
+              <AgentCreationInterface />
+            </div>
+            <div className="ora-grid-item">
+              <TransactionLogs />
+            </div>
+          </div>
+        </div>
+      )}
+      
+      {activeTab === 'framework' && (
+        <div className="framework-container">
           <DataFlowVisualization />
-          <TransactionLogs />
-        </>
+        </div>
       )}
       
       {activeTab === 'create' && (
