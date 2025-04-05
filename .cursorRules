@@ -1,0 +1,450 @@
+# Instructions
+
+During you interaction with the user, if you find anything reusable in this project (e.g. version of a library, model name), especially about a fix to a mistake you made or a correction you received, you should take note in the `Lessons` section in the `.cursorrules` file so you will not make the same mistake again. 
+
+You should also use the `.cursorrules` file as a scratchpad to organize your thoughts. Especially when you receive a new task, you should first review the content of the scratchpad, clear old different task if necessary, first explain the task, and plan the steps you need to take to complete the task. You can use todo markers to indicate the progress, e.g.
+[X] Task 1
+[ ] Task 2
+
+Also update the progress of the task in the Scratchpad when you finish a subtask.
+Especially when you finished a milestone, it will help to improve your depth of task accomplishment to use the scratchpad to reflect and plan.
+The goal is to help you maintain a big picture as well as the progress of the task. Always refer to the Scratchpad when you plan the next step.
+
+# Tools
+
+Note all the tools are in python. So in the case you need to do batch processing, you can always consult the python files and write your own script.
+
+## Screenshot Verification
+The screenshot verification workflow allows you to capture screenshots of web pages and verify their appearance using LLMs. The following tools are available:
+
+1. Screenshot Capture:
+```bash
+venv/bin/python tools/screenshot_utils.py URL [--output OUTPUT] [--width WIDTH] [--height HEIGHT]
+```
+
+2. LLM Verification with Images:
+```bash
+venv/bin/python tools/llm_api.py --prompt "Your verification question" --provider {openai|anthropic} --image path/to/screenshot.png
+```
+
+Example workflow:
+```python
+from screenshot_utils import take_screenshot_sync
+from llm_api import query_llm
+
+# Take a screenshot
+screenshot_path = take_screenshot_sync('https://example.com', 'screenshot.png')
+
+# Verify with LLM
+response = query_llm(
+    "What is the background color and title of this webpage?",
+    provider="openai",  # or "anthropic"
+    image_path=screenshot_path
+)
+print(response)
+```
+
+## LLM
+
+You always have an LLM at your side to help you with the task. For simple tasks, you could invoke the LLM by running the following command:
+```
+venv/bin/python ./tools/llm_api.py --prompt "What is the capital of France?" --provider "anthropic"
+```
+
+The LLM API supports multiple providers:
+- OpenAI (default, model: gpt-4o)
+- Azure OpenAI (model: configured via AZURE_OPENAI_MODEL_DEPLOYMENT in .env file, defaults to gpt-4o-ms)
+- DeepSeek (model: deepseek-chat)
+- Anthropic (model: claude-3-sonnet-20240229)
+- Gemini (model: gemini-pro)
+- Local LLM (model: Qwen/Qwen2.5-32B-Instruct-AWQ)
+
+But usually it's a better idea to check the content of the file and use the APIs in the `tools/llm_api.py` file to invoke the LLM if needed.
+
+## Web browser
+
+You could use the `tools/web_scraper.py` file to scrape the web.
+```
+venv/bin/python ./tools/web_scraper.py --max-concurrent 3 URL1 URL2 URL3
+```
+This will output the content of the web pages.
+
+## Search engine
+
+You could use the `tools/search_engine.py` file to search the web.
+```
+venv/bin/python ./tools/search_engine.py "your search keywords"
+```
+This will output the search results in the following format:
+```
+URL: https://example.com
+Title: This is the title of the search result
+Snippet: This is a snippet of the search result
+```
+If needed, you can further use the `web_scraper.py` file to scrape the web page content.
+
+# Lessons
+
+## User Specified Lessons
+
+- You have a python venv in ./venv. Use it.
+- Include info useful for debugging in the program output.
+- Read the file before you try to edit it.
+- Due to Cursor's limit, when you use `git` and `gh` and need to submit a multiline commit message, first write the message in a file, and then use `git commit -F <filename>` or similar command to commit. And then remove the file. Include "[Cursor] " in the commit message and PR title.
+
+## Cursor learned
+
+- For search results, ensure proper handling of different character encodings (UTF-8) for international queries
+- Add debug information to stderr while keeping the main output clean in stdout for better pipeline integration
+- When using seaborn styles in matplotlib, use 'seaborn-v0_8' instead of 'seaborn' as the style name due to recent seaborn version changes
+- Use 'gpt-4o' as the model name for OpenAI's GPT-4 with vision capabilities
+- When using f-strings with JSON templates, double the curly braces `{{` and `}}` to escape them properly and avoid format specifier errors
+- When working with experimental models like `gemini-2.0-flash-thinking-exp-01-21`, always implement fallback mechanisms to standard models in case the experimental model is unavailable
+- For options data, use RapidAPI directly instead of the YahooFinanceConnector class to avoid compatibility issues with the OptionChainQuote initialization
+- When processing options data from RapidAPI, create a mapping of strikes to straddles for easier lookup and processing of call and put data
+
+# Scratchpad
+
+## Current Task
+ORA Builder Program Track 2 Application Plan
+
+## Project Overview
+We're developing an AI-powered crypto hedge fund platform that integrates with ORA infrastructure. Our goal is to apply for Track 2 (SPRINT) of the ORA Builder Program, which requires integration of 2 pieces of ORA infrastructure and follows a 3-month development timeline.
+
+## ORA Integration Plan
+
+### ORA Infrastructure Components to Integrate
+1. **ORA Risk Management System (RMS)**
+   - Will enhance our risk assessment capabilities for smart contracts and DeFi protocols
+   - Provides institutional-grade risk analysis for retail users
+
+2. **opAgent Framework**
+   - Will power our autonomous trading agents
+   - Enables on-chain execution of AI-driven investment strategies
+
+## Smart Contract Integration with ORA
+
+### Existing Smart Contract Analysis
+We have a comprehensive analysis of the existing smart contracts in our codebase that can be leveraged for our ORA integration:
+
+#### Core Token System
+- **Zoinks (HZUSD)**: Stablecoin with TWAP-based emission - ideal for ORA RMS analysis of price stability
+- **Snacks (SNACK)**: Reward token with complex fee distribution - good candidate for agent interaction
+- **BtcSnacks/EthSnacks**: BTC/ETH-pegged tokens - useful for cross-chain strategy development
+
+#### Core Infrastructure
+- **RolesManager**: Role-based access control - critical for security analysis with ORA RMS
+- **AveragePriceOracle**: Price oracle - key component for ORA RMS to analyze oracle manipulation risks
+
+#### Staking and Rewards
+- **SnacksPool**: Staking pool - excellent target for opAgent staking strategies
+- **LunchBox**: Reward distribution - can be used for yield optimization agents
+- **PoolRewardDistributor**: Reward allocation - useful for agent-based yield farming
+
+#### Treasury and Management
+- **Seniorage**: Treasury management - can be modeled by portfolio management agents
+- **SystemStopper**: Emergency mechanism - can be triggered by risk monitoring agents
+
+#### IDO System
+- **IDOFactory/IDOPool**: IDO management - can be analyzed by ORA RMS for investment risk
+- **IDOToken**: Project tokens - can be traded by opAgents based on risk assessment
+
+### Risk Assessment Integration (ORA RMS)
+- Use existing contracts as test cases for vulnerability analysis
+- Implement monitoring for protocol health metrics
+- Create risk scoring system based on contract analysis
+- Focus on role-based access control, fee calculations, and oracle risks
+
+### Agent Implementation (opAgent)
+- Create agents for staking in SnacksPool
+- Implement yield optimization with LunchBox rewards
+- Build arbitrage agents for DEX integration
+- Develop treasury management agents similar to Seniorage
+- Create emergency response agents that can trigger SystemStopper
+
+### Contract-Specific Integration Opportunities
+
+1. **Zoinks (HZUSD) Integration**
+   - ORA RMS can analyze TWAP-based emission mechanism for manipulation risks
+   - opAgents can monitor stablecoin peg stability
+   - Agents can participate in emission distribution
+
+2. **Snacks Ecosystem Integration**
+   - ORA RMS can analyze complex fee distribution for fairness and security
+   - opAgents can optimize staking in SnacksPool
+   - Agents can implement yield farming strategies with BtcSnacks and EthSnacks
+
+3. **IDO System Integration**
+   - ORA RMS can assess IDO investment risks
+   - opAgents can analyze and participate in promising IDOs
+   - Agents can monitor IDO performance and manage positions
+
+4. **DEX Integration**
+   - opAgents can execute trades across multiple DEXes
+   - Implement arbitrage strategies between PancakeSwap, ApeSwap, and BiSwap
+   - ORA RMS can monitor liquidity pool risks
+
+## Development Roadmap (12-Week Plan)
+
+### Phase 1: Early Development (Weeks 1-4)
+[X] Project setup and repository organization
+[ ] Integrate Binance API for market data and trading
+[ ] Adapt existing smart contract analysis to use ORA RMS
+[ ] Create basic opAgent implementation for portfolio management
+[ ] Develop scenario testing framework for agent strategies
+
+#### Week 1: Setup & Research
+- Set up development environment with ORA dependencies
+- Research ORA RMS API and integration requirements
+- Analyze existing Binance API integration points
+- Document integration architecture
+
+#### Week 2: Binance API Integration
+- Implement Binance API client for market data
+- Create data models for crypto assets and trading pairs
+- Develop historical data fetching for backtesting
+- Build real-time price monitoring system
+
+#### Week 3: ORA RMS Integration
+- Integrate ORA RMS for smart contract risk analysis
+- Adapt our existing `RiskAssessment` component to use ORA RMS
+- Implement risk scoring system based on ORA metrics
+- Create visualization for risk assessment results
+
+#### Week 4: Basic opAgent Setup
+- Set up opAgent framework
+- Create basic agent templates for different strategies
+- Implement agent configuration interface
+- Develop agent monitoring dashboard
+
+### Phase 2: MVP Development (Weeks 5-8)
+[ ] Enhance DataFlowVisualization to show real opAgent interactions
+[ ] Implement trading strategy execution via opAgent
+[ ] Connect Binance API with opAgent for trade execution
+[ ] Develop portfolio management system
+[ ] Create user dashboard for strategy monitoring
+
+#### Week 5: Agent Strategy Development
+- Implement multiple trading strategies (e.g., DCA, Grid Trading)
+- Create strategy backtesting framework
+- Develop strategy performance metrics
+- Build strategy comparison visualization
+
+#### Week 6: Trade Execution System
+- Connect opAgent with Binance API for trade execution
+- Implement order management system
+- Create transaction logging and monitoring
+- Develop error handling and recovery mechanisms
+
+#### Week 7: Portfolio Management
+- Build portfolio tracking and analysis
+- Implement risk-adjusted performance metrics
+- Create portfolio rebalancing mechanisms
+- Develop portfolio visualization components
+
+#### Week 8: User Dashboard
+- Create comprehensive user dashboard
+- Implement strategy selection and configuration
+- Develop performance monitoring interface
+- Build notification system for trade events
+
+### Phase 3: Refinement & Release (Weeks 9-12)
+[ ] Conduct comprehensive testing and optimization
+[ ] Implement advanced risk management features
+[ ] Create documentation and tutorials
+[ ] Prepare for open-source release
+[ ] Develop marketing materials and demo videos
+
+#### Week 9: Testing & Optimization
+- Conduct end-to-end testing of the platform
+- Optimize agent performance and resource usage
+- Implement stress testing for market volatility
+- Fix bugs and improve error handling
+
+#### Week 10: Advanced Features
+- Implement advanced risk management features
+- Create multi-agent coordination system
+- Develop custom strategy builder
+- Implement social sharing of strategies
+
+#### Week 11: Documentation & Tutorials
+- Create comprehensive documentation
+- Develop step-by-step tutorials
+- Record demo videos
+- Prepare user guides
+
+#### Week 12: Open-Source Release
+- Prepare GitHub repository for public release
+- Create contribution guidelines
+- Set up issue templates and project roadmap
+- Develop marketing materials for launch
+
+## Code Reuse Analysis
+
+### Frontend Components We Can Reuse
+
+1. **DataFlowVisualization Component**
+   - Already implements visualization of agent workflows
+   - Can be enhanced to show real opAgent interactions
+   - Needs integration with actual opAgent events and status
+
+2. **RiskAssessment Component**
+   - Currently implements mock risk assessment
+   - Can be adapted to use ORA RMS for real risk analysis
+   - UI already supports displaying risk metrics and explanations
+
+3. **AgentCreationInterface**
+   - Provides UI for creating and configuring agents
+   - Can be extended to support opAgent configuration
+   - Already has Claude integration for suggestions
+
+4. **TransactionLogs Component**
+   - Displays transaction history
+   - Can be connected to actual on-chain transactions
+   - UI supports displaying transaction details
+
+5. **ClaudeAssistant Component**
+   - Provides AI assistant functionality
+   - Can be enhanced with ORA-specific knowledge
+   - Already has context-aware responses
+
+6. **Dashboard Components**
+   - `AgentStatusDashboard` can be adapted for opAgent monitoring
+   - `ProtocolMonitoringDashboard` can use ORA RMS data
+   - Chart components can visualize performance metrics
+
+### Backend Services We Can Reuse
+
+1. **defiDataService.js**
+   - Already implements API calls to various DeFi data sources
+   - Can be extended to include ORA RMS API calls
+   - Has functions for token and protocol data
+
+2. **mockDataService.js**
+   - Provides mock data structures we can use as templates
+   - Useful for development before full API integration
+
+3. **Claude API Integration**
+   - Server proxy for Claude API calls
+   - Can be used for agent strategy suggestions
+   - Already handles authentication and error handling
+
+### Smart Contract Integration
+
+1. **Existing Contract Analysis**
+   - We have already analyzed the smart contracts in `/contracts`
+   - Can leverage this understanding for ORA RMS integration
+   - Contract ABIs can be used for on-chain interactions
+
+2. **Binance API Integration Plan**
+   - Implement a new service for Binance API integration
+   - Create trading pair data models
+   - Develop order execution functions
+   - Implement websocket for real-time data
+
+```javascript
+// Example Binance API service structure
+export class BinanceService {
+  constructor(apiKey, apiSecret) {
+    this.apiKey = apiKey;
+    this.apiSecret = apiSecret;
+    this.baseUrl = 'https://api.binance.com';
+  }
+
+  // Market data methods
+  async getTickerPrice(symbol) { /* ... */ }
+  async getOrderBook(symbol, limit = 100) { /* ... */ }
+  async getKlines(symbol, interval, startTime, endTime) { /* ... */ }
+
+  // Trading methods
+  async createOrder(symbol, side, type, quantity, price) { /* ... */ }
+  async cancelOrder(symbol, orderId) { /* ... */ }
+  async getOpenOrders(symbol) { /* ... */ }
+
+  // Account methods
+  async getAccountInfo() { /* ... */ }
+  async getBalances() { /* ... */ }
+
+  // Websocket methods
+  subscribeToTicker(symbol, callback) { /* ... */ }
+  subscribeToUserData(callback) { /* ... */ }
+}
+```
+
+## New Components to Develop
+
+1. **ORA RMS Integration Service**
+   - API client for ORA RMS
+   - Risk analysis functions
+   - Risk data visualization
+
+2. **opAgent Configuration System**
+   - Agent template management
+   - Strategy configuration
+   - Agent deployment and monitoring
+
+3. **Trading Strategy Library**
+   - Implementation of various trading strategies
+   - Strategy backtesting
+   - Performance metrics
+
+4. **Portfolio Management System**
+   - Portfolio tracking
+   - Performance analysis
+   - Rebalancing algorithms
+
+5. **On-Chain Transaction System**
+   - Transaction preparation
+   - Gas optimization
+   - Transaction monitoring
+
+## Technical Requirements
+
+1. **Dependencies**
+   - ORA SDK (for RMS and opAgent)
+   - Web3.js (for blockchain interactions)
+   - Binance API client
+   - Chart.js (for data visualization)
+   - React (for UI components)
+
+2. **APIs**
+   - ORA RMS API
+   - ORA opAgent API
+   - Binance API
+   - Anthropic Claude API (for AI assistant)
+
+3. **Development Environment**
+   - Node.js
+   - React
+   - Python (for tools and scripts)
+   - Hardhat (for smart contract testing)
+
+## Milestones and Deliverables
+
+### Milestone 1 (Week 4)
+- Working Binance API integration
+- Basic ORA RMS integration for risk assessment
+- Initial opAgent setup
+- Updated UI components for ORA integration
+
+### Milestone 2 (Week 8)
+- Functional MVP with trading strategy execution
+- Portfolio management system
+- User dashboard for monitoring
+- Documentation of core features
+
+### Milestone 3 (Week 12)
+- Complete platform with advanced features
+- Comprehensive documentation
+- Open-source release
+- Demo videos and marketing materials
+
+## Next Steps
+
+[ ] Set up ORA SDK and dependencies
+[ ] Create Binance API service
+[ ] Adapt RiskAssessment component for ORA RMS
+[ ] Implement basic opAgent configuration
+[ ] Update project documentation with ORA integration details
+[ ] Extract ABIs from existing smart contracts
+[ ] Create test environment with contract deployments
