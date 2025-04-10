@@ -24,7 +24,7 @@ const WhitepaperPreview: React.FC = () => {
             <span className="absolute -bottom-2 left-0 h-1 w-full bg-gradient-to-r from-blue-500 to-transparent"></span>
           </h2>
           <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-            Explore our comprehensive whitepaper to understand the technology, tokenomics, and vision behind our AI-powered crypto hedge fund platform.
+            Explore our comprehensive whitepaper detailing DefiKSA's approach to Sharia-compliant finance, AI integration, and platform architecture.
           </p>
         </div>
 
@@ -109,7 +109,7 @@ const WhitepaperPreview: React.FC = () => {
             </svg>
           </Link>
           <p className="text-gray-400 mt-4 max-w-2xl mx-auto">
-            Discover how our platform combines AI technology with blockchain for institutional-grade crypto investment strategies.
+            Discover how DefiKSA combines AI with verifiable blockchain technology to deliver innovative and compliant financial solutions.
           </p>
         </div>
       </div>

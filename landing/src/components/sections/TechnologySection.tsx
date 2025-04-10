@@ -89,10 +89,10 @@ const TechnologySection = () => {
               ORA Framework
             </span>
             <h2 className="text-3xl md:text-4xl font-bold mb-6">
-              Powered by Advanced <span className="text-gradient-blue">Technology</span>
+              Built on Verifiable <span className="text-gradient-blue">Technology</span>
             </h2>
             <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-              Our platform utilizes the powerful ORA Framework to create a seamless bridge between AI systems and blockchain networks, enabling autonomous financial operations with verification.
+              DefiKSA leverages the ORA Framework to ensure transparent, verifiable AI operations on the blockchain, providing a secure foundation for Sharia-compliant financial solutions.
             </p>
           </motion.div>
         </div>
@@ -109,7 +109,7 @@ const TechnologySection = () => {
             <div className="col-span-1">
               <h3 className="text-2xl font-bold mb-4">ORA Framework Architecture</h3>
               <p className="text-gray-300 mb-6">
-                The ORA Framework enables AI agents to operate both onchain and offchain, with verifiable execution and oracle capabilities that bring intelligence to blockchain networks.
+                The ORA Framework enables AI agents to operate verifiably both onchain and offchain. This transparency and security are crucial for building trust and implementing the Sharia compliance rules embedded within DefiKSA agents.
               </p>
               <ul className="space-y-3">
                 <li className="flex items-start">

@@ -3,49 +3,49 @@ import { motion } from 'framer-motion';
 
 const ProtocolMonitoringPreview = () => {
   const protocolData = {
-    name: 'Uniswap V3',
+    name: 'Verified Mudarabah Pool',
     tvl: {
-      value: 783500000,
-      change: 2.4
+      value: 55200000,
+      change: 1.8
     },
     volume24h: {
-      value: 156200000,
-      change: 5.2
+      value: 1230000,
+      change: 3.1
     },
-    fees24h: {
-      value: 468600,
-      change: 4.8
+    profitShare24h: {
+      value: 15800,
+      change: 2.5
     },
     uniqueUsers: {
-      value: 12640,
-      change: -1.3
+      value: 850,
+      change: 0.5
     },
     metrics: [
-      { name: 'Liquidity Utilization', value: '72.5%', format: 'percentage' },
-      { name: 'Gas Efficiency', value: '86.3%', format: 'percentage' },
-      { name: 'Avg. Slippage', value: '0.15%', format: 'percentage' },
-      { name: 'TX Success Rate', value: '99.2%', format: 'percentage' }
+      { name: 'Sharia Compliance Status', value: 'Verified', format: 'status' },
+      { name: 'Profit Source Transparency', value: 'High', format: 'qualitative' },
+      { name: 'Permissible Asset Ratio', value: '100%', format: 'percentage' },
+      { name: 'Interest (Riba) Exposure', value: 'None Detected', format: 'status' }
     ],
     alerts: [
       { 
         id: 1,
         severity: 'medium', 
-        message: 'Unusual volume spike in ETH/USDC pool (32% above average)',
-        time: '12m ago',
+        message: 'Underlying asset [Asset Name] in pool flagged for potential compliance review due to business activity change.',
+        time: '45m ago',
         resolved: false
       },
       { 
         id: 2,
         severity: 'low', 
-        message: 'Increased gas prices affecting transaction costs',
-        time: '1h ago',
+        message: 'Increased demand for profit-sharing; pool nearing capacity.',
+        time: '2h ago',
         resolved: false
       },
       { 
         id: 3,
         severity: 'high', 
-        message: 'Significant price impact for large swaps >$50k',
-        time: '3h ago',
+        message: 'Temporary suspension of withdrawals from underlying [Asset XYZ] issuer - Resolved.',
+        time: '5h ago',
         resolved: true
       }
     ]
@@ -95,10 +95,10 @@ const ProtocolMonitoringPreview = () => {
       
       <div className="max-w-7xl mx-auto relative z-10">
         <h2 className="text-3xl md:text-4xl font-bold mb-4 text-center">
-          Monitor <span className="text-gradient-blue">DeFi Protocols</span> in Real-Time
+          Monitor <span className="text-gradient-blue">Compliant Protocols</span> in Real-Time
         </h2>
         <p className="text-xl text-gray-300 text-center mb-16 max-w-3xl mx-auto">
-          Stay informed with comprehensive metrics, alerts, and performance data across multiple DeFi protocols with our intuitive monitoring dashboard.
+          Stay informed with compliance status, key metrics, and performance data for vetted protocols within the DefiKSA ecosystem.
         </p>
 
         <div className="glass-dark p-6 rounded-xl mb-8">
@@ -160,11 +160,11 @@ const ProtocolMonitoringPreview = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3 }}
             >
-              <div className="text-gray-400 text-sm mb-1">24h Fees</div>
-              <div className="text-2xl font-bold mb-1">{formatCurrency(protocolData.fees24h.value)}</div>
-              <div className={`flex items-center text-sm ${getChangeClass(protocolData.fees24h.change)}`}>
-                {getChangeIcon(protocolData.fees24h.change)}
-                <span className="ml-1">{Math.abs(protocolData.fees24h.change)}%</span>
+              <div className="text-gray-400 text-sm mb-1">24h Profit Share</div>
+              <div className="text-2xl font-bold mb-1">{formatCurrency(protocolData.profitShare24h.value)}</div>
+              <div className={`flex items-center text-sm ${getChangeClass(protocolData.profitShare24h.change)}`}>
+                {getChangeIcon(protocolData.profitShare24h.change)}
+                <span className="ml-1">{Math.abs(protocolData.profitShare24h.change)}%</span>
               </div>
             </motion.div>
 

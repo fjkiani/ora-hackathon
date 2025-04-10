@@ -4,45 +4,45 @@ import { motion } from 'framer-motion';
 const StrategyPreview = () => {
   const strategySteps = [
     {
-      type: 'deposit',
-      protocol: 'Aave',
-      asset: 'ETH',
-      amount: 5000,
-      description: 'Deposit ETH into Aave for base yield'
+      type: 'Screen',
+      protocol: 'Halal Asset Database',
+      asset: 'All Portfolio Assets',
+      amountDescription: 'Compliance Step',
+      description: 'Ensure all initial assets meet Sharia compliance criteria (business activity, debt ratios).'
     },
     {
-      type: 'stake',
-      protocol: 'Curve',
-      asset: 'ETH/USDC',
-      amount: 3000,
-      description: 'Provide liquidity to ETH/USDC pool for fees'
+      type: 'Allocate',
+      protocol: 'Mudarabah Pool (Verified)',
+      asset: 'USDC/SAR Pair',
+      amountDescription: '70% Allocation',
+      description: 'Allocate capital to a verified profit-sharing investment pool.'
     },
     {
-      type: 'optimize',
-      protocol: 'Convex',
-      asset: 'cvxCRV',
-      amount: 1500,
-      description: 'Stake LP tokens for boosted rewards'
+      type: 'Diversify',
+      protocol: 'Sukuk Token (AAA Rated)',
+      asset: 'Digital Sukuk XYZ',
+      amountDescription: '30% Allocation',
+      description: 'Invest in asset-backed, Sharia-compliant digital Sukuk for diversification.'
     },
     {
-      type: 'hedge',
-      protocol: 'Options',
-      asset: 'ETH Put',
-      amount: 500,
-      description: 'Purchase downside protection'
+      type: 'Monitor',
+      protocol: 'Compliance Oracle',
+      asset: 'Ongoing Portfolio',
+      amountDescription: 'Continuous',
+      description: 'Continuously monitor portfolio and underlying assets for Sharia compliance drift.'
     }
   ];
 
   const strategyMetrics = [
-    { label: 'Expected APY', value: '12.5%', color: 'bg-green-500' },
-    { label: 'Risk Level', value: 'Medium', color: 'bg-yellow-500' },
-    { label: 'Time Horizon', value: '6 Months', color: 'bg-blue-500' }
+    { label: 'Sharia Compliance Score', value: '98%', color: 'bg-green-500' },
+    { label: 'Projected Profit Share (Annualized)', value: '6.5%', color: 'bg-blue-500' },
+    { label: 'Risk Assessment (Qualitative)', value: 'Low-Medium', color: 'bg-yellow-500' }
   ];
 
   const suggestions = [
-    'Consider adding stablecoin LP positions for reduced volatility',
-    'Explore options for hedging ETH exposure',
-    'Increase allocation to stable yields if seeking lower risk'
+    'Consider increasing allocation to asset-backed Sukuk for lower risk profile.',
+    'Review flagged asset [Asset Name] for potential non-compliance based on recent [Criteria] change.',
+    'Explore diversification into [Compliant Sector/Asset Type] to enhance risk-adjusted returns.'
   ];
 
   return (
@@ -52,10 +52,10 @@ const StrategyPreview = () => {
       
       <div className="max-w-7xl mx-auto relative z-10">
         <h2 className="text-3xl md:text-4xl font-bold mb-4 text-center">
-          Build Your <span className="text-gradient-blue">Investment Strategy</span>
+          Design Your <span className="text-gradient-blue">Sharia-Compliant</span> Financial Strategy
         </h2>
         <p className="text-xl text-gray-300 text-center mb-16 max-w-3xl mx-auto">
-          Our platform allows you to create, evaluate, and deploy customized DeFi strategies tailored to your goals and risk tolerance.
+          Our platform allows you to build, evaluate, and deploy automated financial strategies designed to operate within Sharia guidelines.
         </p>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -63,13 +63,13 @@ const StrategyPreview = () => {
           <div className="lg:col-span-2">
             <div className="glass-dark p-6 rounded-xl">
               <div className="flex justify-between items-center mb-8">
-                <h3 className="text-xl font-bold">Strategy Builder</h3>
+                <h3 className="text-xl font-bold">Compliant Strategy Builder</h3>
                 <div className="flex space-x-2">
                   <div className="px-3 py-1 text-sm font-medium bg-blue-900/50 rounded-full">
-                    Investment: $10,000
+                    Allocation: 100%
                   </div>
-                  <div className="px-3 py-1 text-sm font-medium bg-amber-900/50 rounded-full">
-                    Risk: Medium
+                  <div className="px-3 py-1 text-sm font-medium bg-green-900/50 rounded-full">
+                    Compliance: Target 95%+
                   </div>
                 </div>
               </div>
@@ -87,11 +87,10 @@ const StrategyPreview = () => {
                       <div className="font-medium text-blue-400">
                         Step {index + 1}: {step.type.charAt(0).toUpperCase() + step.type.slice(1)}
                       </div>
-                      <div className="text-sm">${step.amount.toLocaleString()}</div>
+                      <div className="text-sm">{step.amountDescription}</div>
                     </div>
                     <div className="flex justify-between text-sm">
                       <div className="text-gray-300">{step.protocol} • {step.asset}</div>
-                      <div className="text-gray-400">{step.amount / 100}%</div>
                     </div>
                     <div className="mt-2 text-sm text-gray-400">{step.description}</div>
                   </motion.div>
@@ -112,7 +111,7 @@ const StrategyPreview = () => {
           {/* Strategy Analysis */}
           <div className="lg:col-span-1">
             <div className="glass-dark p-6 rounded-xl h-full">
-              <h3 className="text-xl font-bold mb-6">Strategy Analysis</h3>
+              <h3 className="text-xl font-bold mb-6">Compliance & Performance Analysis</h3>
               
               <div className="space-y-4 mb-8">
                 {strategyMetrics.map((metric, index) => (
@@ -145,7 +144,7 @@ const StrategyPreview = () => {
                   <svg className="h-5 w-5 text-blue-400 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
-                  <span className="font-medium">Powered by Claude AI</span>
+                  <span className="font-medium">Powered by Jedi Labs</span>
                 </div>
                 <p className="text-xs text-gray-400">
                   Our AI analyzes your strategy against current market conditions and historical performance to provide personalized recommendations.

@@ -10,7 +10,7 @@ const FeaturesSection = () => {
         </svg>
       ),
       title: 'AI-Powered Risk Assessment',
-      description: 'Real-time risk evaluation of DeFi protocols using machine learning algorithms trained on historical data and market patterns.',
+      description: 'Real-time risk evaluation of assets and protocols, incorporating Sharia compliance screening alongside financial metrics.',
       color: 'from-blue-500 to-blue-600'
     },
     {
@@ -20,7 +20,7 @@ const FeaturesSection = () => {
         </svg>
       ),
       title: 'Autonomous AI Agents',
-      description: 'Create and deploy customized AI agents that autonomously interact with blockchain networks and execute financial strategies.',
+      description: 'Create and deploy customized AI agents that operate within Sharia parameters to execute your financial strategies autonomously.',
       color: 'from-purple-500 to-purple-600'
     },
     {
@@ -31,7 +31,7 @@ const FeaturesSection = () => {
         </svg>
       ),
       title: 'Protocol Monitoring Dashboard',
-      description: 'Comprehensive dashboard displaying real-time metrics, analytics, and performance data across multiple DeFi protocols.',
+      description: 'Monitor key metrics across financial protocols, with clear indicators for Sharia compliance status.',
       color: 'from-green-500 to-green-600'
     },
     {
@@ -51,7 +51,7 @@ const FeaturesSection = () => {
         </svg>
       ),
       title: 'Multi-Chain Integration',
-      description: 'Seamless operation across multiple blockchain networks, allowing for diversified investment strategies and broad market exposure.',
+      description: 'Seamless operation across multiple blockchain networks, enabling diversified strategies using vetted, compliant assets and protocols.',
       color: 'from-yellow-500 to-yellow-600'
     },
     {
@@ -61,7 +61,7 @@ const FeaturesSection = () => {
         </svg>
       ),
       title: 'Strategy Builder',
-      description: 'Interactive tool for creating and testing custom investment strategies based on risk tolerance, timeframe, and financial goals.',
+      description: 'Interactive tool for creating and testing custom, Sharia-compliant financial strategies based on your goals and risk tolerance.',
       color: 'from-blue-500 to-blue-600'
     },
   ];
@@ -80,10 +80,10 @@ const FeaturesSection = () => {
               Platform Features
             </span>
             <h2 className="text-3xl md:text-4xl font-bold mb-6">
-              Advanced Tools for <span className="text-gradient-blue">DeFi Investors</span>
+              Intelligent Tools for <span className="text-gradient-blue">Compliant Finance</span>
             </h2>
             <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-              Our platform offers a comprehensive suite of tools designed to help you navigate the complexities of decentralized finance with confidence.
+              DefiKSA offers a comprehensive suite of AI-powered tools designed to help you manage your finances effectively within Sharia guidelines.
             </p>
           </motion.div>
         </div>

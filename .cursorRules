@@ -102,349 +102,111 @@ If needed, you can further use the `web_scraper.py` file to scrape the web page 
 - When working with experimental models like `gemini-2.0-flash-thinking-exp-01-21`, always implement fallback mechanisms to standard models in case the experimental model is unavailable
 - For options data, use RapidAPI directly instead of the YahooFinanceConnector class to avoid compatibility issues with the OptionChainQuote initialization
 - When processing options data from RapidAPI, create a mapping of strikes to straddles for easier lookup and processing of call and put data
+- When creating React components, ensure robust error handling for API calls and data processing to prevent UI crashes
+- Use React.lazy and Suspense for code splitting in React applications to improve initial load time
+- For TypeScript React projects, define proper interface types for component props to ensure type safety
 
 # Scratchpad
 
-## Current Task
-ORA Builder Program Track 2 Application Plan
+## Current Task: Rebrand Landing Page to DefiKSA.org
+[ ] Update branding elements (logo, name) across the landing page
+[ ] Refocus messaging for Saudi Arabian (KSA) market
+[ ] Review content for alignment with Sharia compliance principles (initial pass)
+[ ] Potentially hint at future cross-border payment functionality
 
-## Project Overview
-We're developing an AI-powered crypto hedge fund platform that integrates with ORA infrastructure. Our goal is to apply for Track 2 (SPRINT) of the ORA Builder Program, which requires integration of 2 pieces of ORA infrastructure and follows a 3-month development timeline.
+## Sub-Tasks:
+[X] Identify specific files in `landing/src/` needing updates (e.g., components, assets)
+[X] Gather new logo file and specific text/messaging changes from user (Using placeholders for now)
+[X] Implement logo replacement (Using text placeholder DK)
+[X] Implement text and messaging updates in relevant sections (Hero, Footer, Metadata)
+[X] Implement text updates in Agent Showcase title/description
+[ ] Implement detailed explanations for Agent Showcase examples
+[ ] Update other sections (Features, Tech, Tokenomics) with new branding/messaging
+[ ] Adjust styling (colors?) if needed for new brand identity
+[ ] Review changes
+[ ] Update READMEs
 
-## ORA Integration Plan
+## Rebranding Notes (DefiKSA) - Landing Page Focus
 
-### ORA Infrastructure Components to Integrate
-1. **ORA Risk Management System (RMS)**
-   - Will enhance our risk assessment capabilities for smart contracts and DeFi protocols
-   - Provides institutional-grade risk analysis for retail users
+*   **New Brand:** DefiKSA.org (Update site name, logos)
+*   **Target Audience:** Saudi Arabia (KSA) - Adjust language, visuals, value proposition. Emphasize security, compliance (where applicable *now*), efficiency.
+*   **Messaging:**
+    *   Highlight AI-powered finance tailored for the region.
+    *   Subtly introduce the concept of secure, efficient financial operations (can bridge to payments later).
+    *   Mention ORA framework benefits (transparency, security).
+*   **Compliance:** Ensure landing page language doesn't make premature claims but aligns with the *direction* of Sharia compliance. Avoid explicitly mentioning interest-based DeFi mechanisms if possible in marketing copy.
+*   **Existing Tech:** Leverage existing descriptions of AI agents, ORA, risk tools, but frame them for the KSA audience.
 
-2. **opAgent Framework**
-   - Will power our autonomous trading agents
-   - Enables on-chain execution of AI-driven investment strategies
+## Agent Showcase Enhancement Plan:
+[ ] Define detailed content (Problem, How it Works, Benefits) for each Sharia-compliant agent example.
+[ ] Modify `Agent` interface/data in `AgentShowcase.tsx` to include detailed content.
+[ ] Update JSX in `AgentShowcase.tsx` detail panel to display the new detailed content instead of just description/metrics.
 
-## Smart Contract Integration with ORA
+---
+## Previous Task: Landing Page Implementation (Reference)
 
-### Existing Smart Contract Analysis
-We have a comprehensive analysis of the existing smart contracts in our codebase that can be leveraged for our ORA integration:
+### Project Context
+[X] We currently have:
+[X] 1. A functional application frontend with API integrations, data visualization, and interactive components (Note: Confirmed this is mostly mocked/prototype stage)
+[X] 2. Plans for a whitepaper that will detail our project's vision, technology, and value proposition
 
-#### Core Token System
-- **Zoinks (HZUSD)**: Stablecoin with TWAP-based emission - ideal for ORA RMS analysis of price stability
-- **Snacks (SNACK)**: Reward token with complex fee distribution - good candidate for agent interaction
-- **BtcSnacks/EthSnacks**: BTC/ETH-pegged tokens - useful for cross-chain strategy development
+[X] We need to create a separate landing page focused on marketing and showcasing details from the whitepaper while keeping the application separate.
 
-#### Core Infrastructure
-- **RolesManager**: Role-based access control - critical for security analysis with ORA RMS
-- **AveragePriceOracle**: Price oracle - key component for ORA RMS to analyze oracle manipulation risks
+### Project Background
+[X] - 🏆 NYU Hackathon Winner
+[X] - Innovative integration of AI and blockchain technologies through the ORA Framework
+[X] - Bridges traditional finance and decentralized finance (DeFi)
+[X] - AI agents autonomously interact with blockchain networks to execute financial strategies
+[X] - Comprehensive dashboard for monitoring DeFi protocols, assessing risks, and creating AI agents
 
-#### Staking and Rewards
-- **SnacksPool**: Staking pool - excellent target for opAgent staking strategies
-- **LunchBox**: Reward distribution - can be used for yield optimization agents
-- **PoolRewardDistributor**: Reward allocation - useful for agent-based yield farming
+### Key Features (Landing Page Representation)
+[X] - Interactive ORA Framework Visualization with animations
+[X] - Risk Assessment Tools for DeFi protocols
+[X] - Protocol Monitoring Dashboard for real-time metrics
+[X] - Agent Creation Interface for AI agent deployment
+[X] - Transaction Logs for agent-executed transactions
+[X] - Claude AI Assistant for DeFi questions
 
-#### Treasury and Management
-- **Seniorage**: Treasury management - can be modeled by portfolio management agents
-- **SystemStopper**: Emergency mechanism - can be triggered by risk monitoring agents
+### Technical Approach (Landing Page)
+[X] - Frontend: React with TypeScript for frontend (Next.js confirmed in `landing/`)
+[X] - Styling: Tailwind CSS
+[X] - SEO: Static site generation benefits
 
-#### IDO System
-- **IDOFactory/IDOPool**: IDO management - can be analyzed by ORA RMS for investment risk
-- **IDOToken**: Project tokens - can be traded by opAgents based on risk assessment
-
-### Risk Assessment Integration (ORA RMS)
-- Use existing contracts as test cases for vulnerability analysis
-- Implement monitoring for protocol health metrics
-- Create risk scoring system based on contract analysis
-- Focus on role-based access control, fee calculations, and oracle risks
-
-### Agent Implementation (opAgent)
-- Create agents for staking in SnacksPool
-- Implement yield optimization with LunchBox rewards
-- Build arbitrage agents for DEX integration
-- Develop treasury management agents similar to Seniorage
-- Create emergency response agents that can trigger SystemStopper
-
-### Contract-Specific Integration Opportunities
-
-1. **Zoinks (HZUSD) Integration**
-   - ORA RMS can analyze TWAP-based emission mechanism for manipulation risks
-   - opAgents can monitor stablecoin peg stability
-   - Agents can participate in emission distribution
-
-2. **Snacks Ecosystem Integration**
-   - ORA RMS can analyze complex fee distribution for fairness and security
-   - opAgents can optimize staking in SnacksPool
-   - Agents can implement yield farming strategies with BtcSnacks and EthSnacks
-
-3. **IDO System Integration**
-   - ORA RMS can assess IDO investment risks
-   - opAgents can analyze and participate in promising IDOs
-   - Agents can monitor IDO performance and manage positions
-
-4. **DEX Integration**
-   - opAgents can execute trades across multiple DEXes
-   - Implement arbitrage strategies between PancakeSwap, ApeSwap, and BiSwap
-   - ORA RMS can monitor liquidity pool risks
-
-## Development Roadmap (12-Week Plan)
-
-### Phase 1: Early Development (Weeks 1-4)
-[X] Project setup and repository organization
-[ ] Integrate Binance API for market data and trading
-[ ] Adapt existing smart contract analysis to use ORA RMS
-[ ] Create basic opAgent implementation for portfolio management
-[ ] Develop scenario testing framework for agent strategies
-
-#### Week 1: Setup & Research
-- Set up development environment with ORA dependencies
-- Research ORA RMS API and integration requirements
-- Analyze existing Binance API integration points
-- Document integration architecture
-
-#### Week 2: Binance API Integration
-- Implement Binance API client for market data
-- Create data models for crypto assets and trading pairs
-- Develop historical data fetching for backtesting
-- Build real-time price monitoring system
-
-#### Week 3: ORA RMS Integration
-- Integrate ORA RMS for smart contract risk analysis
-- Adapt our existing `RiskAssessment` component to use ORA RMS
-- Implement risk scoring system based on ORA metrics
-- Create visualization for risk assessment results
-
-#### Week 4: Basic opAgent Setup
-- Set up opAgent framework
-- Create basic agent templates for different strategies
-- Implement agent configuration interface
-- Develop agent monitoring dashboard
-
-### Phase 2: MVP Development (Weeks 5-8)
-[ ] Enhance DataFlowVisualization to show real opAgent interactions
-[ ] Implement trading strategy execution via opAgent
-[ ] Connect Binance API with opAgent for trade execution
-[ ] Develop portfolio management system
-[ ] Create user dashboard for strategy monitoring
-
-#### Week 5: Agent Strategy Development
-- Implement multiple trading strategies (e.g., DCA, Grid Trading)
-- Create strategy backtesting framework
-- Develop strategy performance metrics
-- Build strategy comparison visualization
-
-#### Week 6: Trade Execution System
-- Connect opAgent with Binance API for trade execution
-- Implement order management system
-- Create transaction logging and monitoring
-- Develop error handling and recovery mechanisms
-
-#### Week 7: Portfolio Management
-- Build portfolio tracking and analysis
-- Implement risk-adjusted performance metrics
-- Create portfolio rebalancing mechanisms
-- Develop portfolio visualization components
-
-#### Week 8: User Dashboard
-- Create comprehensive user dashboard
-- Implement strategy selection and configuration
-- Develop performance monitoring interface
-- Build notification system for trade events
-
-### Phase 3: Refinement & Release (Weeks 9-12)
-[ ] Conduct comprehensive testing and optimization
-[ ] Implement advanced risk management features
-[ ] Create documentation and tutorials
-[ ] Prepare for open-source release
-[ ] Develop marketing materials and demo videos
-
-#### Week 9: Testing & Optimization
-- Conduct end-to-end testing of the platform
-- Optimize agent performance and resource usage
-- Implement stress testing for market volatility
-- Fix bugs and improve error handling
-
-#### Week 10: Advanced Features
-- Implement advanced risk management features
-- Create multi-agent coordination system
-- Develop custom strategy builder
-- Implement social sharing of strategies
-
-#### Week 11: Documentation & Tutorials
-- Create comprehensive documentation
-- Develop step-by-step tutorials
-- Record demo videos
-- Prepare user guides
-
-#### Week 12: Open-Source Release
-- Prepare GitHub repository for public release
-- Create contribution guidelines
-- Set up issue templates and project roadmap
-- Develop marketing materials for launch
-
-## Code Reuse Analysis
-
-### Frontend Components We Can Reuse
-
-1. **DataFlowVisualization Component**
-   - Already implements visualization of agent workflows
-   - Can be enhanced to show real opAgent interactions
-   - Needs integration with actual opAgent events and status
-
-2. **RiskAssessment Component**
-   - Currently implements mock risk assessment
-   - Can be adapted to use ORA RMS for real risk analysis
-   - UI already supports displaying risk metrics and explanations
-
-3. **AgentCreationInterface**
-   - Provides UI for creating and configuring agents
-   - Can be extended to support opAgent configuration
-   - Already has Claude integration for suggestions
-
-4. **TransactionLogs Component**
-   - Displays transaction history
-   - Can be connected to actual on-chain transactions
-   - UI supports displaying transaction details
-
-5. **ClaudeAssistant Component**
-   - Provides AI assistant functionality
-   - Can be enhanced with ORA-specific knowledge
-   - Already has context-aware responses
-
-6. **Dashboard Components**
-   - `AgentStatusDashboard` can be adapted for opAgent monitoring
-   - `ProtocolMonitoringDashboard` can use ORA RMS data
-   - Chart components can visualize performance metrics
-
-### Backend Services We Can Reuse
-
-1. **defiDataService.js**
-   - Already implements API calls to various DeFi data sources
-   - Can be extended to include ORA RMS API calls
-   - Has functions for token and protocol data
-
-2. **mockDataService.js**
-   - Provides mock data structures we can use as templates
-   - Useful for development before full API integration
-
-3. **Claude API Integration**
-   - Server proxy for Claude API calls
-   - Can be used for agent strategy suggestions
-   - Already handles authentication and error handling
-
-### Smart Contract Integration
-
-1. **Existing Contract Analysis**
-   - We have already analyzed the smart contracts in `/contracts`
-   - Can leverage this understanding for ORA RMS integration
-   - Contract ABIs can be used for on-chain interactions
-
-2. **Binance API Integration Plan**
-   - Implement a new service for Binance API integration
-   - Create trading pair data models
-   - Develop order execution functions
-   - Implement websocket for real-time data
-
-```javascript
-// Example Binance API service structure
-export class BinanceService {
-  constructor(apiKey, apiSecret) {
-    this.apiKey = apiKey;
-    this.apiSecret = apiSecret;
-    this.baseUrl = 'https://api.binance.com';
-  }
-
-  // Market data methods
-  async getTickerPrice(symbol) { /* ... */ }
-  async getOrderBook(symbol, limit = 100) { /* ... */ }
-  async getKlines(symbol, interval, startTime, endTime) { /* ... */ }
-
-  // Trading methods
-  async createOrder(symbol, side, type, quantity, price) { /* ... */ }
-  async cancelOrder(symbol, orderId) { /* ... */ }
-  async getOpenOrders(symbol) { /* ... */ }
-
-  // Account methods
-  async getAccountInfo() { /* ... */ }
-  async getBalances() { /* ... */ }
-
-  // Websocket methods
-  subscribeToTicker(symbol, callback) { /* ... */ }
-  subscribeToUserData(callback) { /* ... */ }
-}
+### Project Structure (Confirmed)
+```
+crypto-hedge-fund-main/
+├── landing/            # New landing page code (this implementation)
+│   ├── public/         # Static assets (favicon, images, potential logo location)
+│   ├── src/            # Source code
+│   │   ├── app/        # Next.js app router (pages)
+│   │   ├── components/ # Reusable UI components (sections live here)
+│   │   └── data/       # Data files (e.g., whitepaper)
+│   ├── next.config.js  # Next.js config
+│   ├── package.json
+│   └── tailwind.config.js
+├── ... (other project files/dirs like contracts/, Server/, etc.)
 ```
 
-## New Components to Develop
+### Implementation Progress (Marked as complete for now)
+[X] Phase 1: Setup & Design
+[X] Phase 2: Core Development
+[X] Phase 3: Enhancement & Integration
+[X] Phase 4: Testing & Deployment (Assumed complete for initial version)
 
-1. **ORA RMS Integration Service**
-   - API client for ORA RMS
-   - Risk analysis functions
-   - Risk data visualization
+### Key Components Implemented (Reference for Update)
+[X] HeroSection
+[X] FeaturesSection
+[X] TechnologySection
+[X] TokenomicsSection (May need significant review/update for Sharia compliance later)
+[X] RoadmapSection
+[X] ContactSection
+[X] WhitepaperSection
+[X] MobileMenu
+[X] AboutUsSection (Was pending, needs check)
 
-2. **opAgent Configuration System**
-   - Agent template management
-   - Strategy configuration
-   - Agent deployment and monitoring
-
-3. **Trading Strategy Library**
-   - Implementation of various trading strategies
-   - Strategy backtesting
-   - Performance metrics
-
-4. **Portfolio Management System**
-   - Portfolio tracking
-   - Performance analysis
-   - Rebalancing algorithms
-
-5. **On-Chain Transaction System**
-   - Transaction preparation
-   - Gas optimization
-   - Transaction monitoring
-
-## Technical Requirements
-
-1. **Dependencies**
-   - ORA SDK (for RMS and opAgent)
-   - Web3.js (for blockchain interactions)
-   - Binance API client
-   - Chart.js (for data visualization)
-   - React (for UI components)
-
-2. **APIs**
-   - ORA RMS API
-   - ORA opAgent API
-   - Binance API
-   - Anthropic Claude API (for AI assistant)
-
-3. **Development Environment**
-   - Node.js
-   - React
-   - Python (for tools and scripts)
-   - Hardhat (for smart contract testing)
-
-## Milestones and Deliverables
-
-### Milestone 1 (Week 4)
-- Working Binance API integration
-- Basic ORA RMS integration for risk assessment
-- Initial opAgent setup
-- Updated UI components for ORA integration
-
-### Milestone 2 (Week 8)
-- Functional MVP with trading strategy execution
-- Portfolio management system
-- User dashboard for monitoring
-- Documentation of core features
-
-### Milestone 3 (Week 12)
-- Complete platform with advanced features
-- Comprehensive documentation
-- Open-source release
-- Demo videos and marketing materials
-
-## Next Steps
-
-[ ] Set up ORA SDK and dependencies
-[ ] Create Binance API service
-[ ] Adapt RiskAssessment component for ORA RMS
-[ ] Implement basic opAgent configuration
-[ ] Update project documentation with ORA integration details
-[ ] Extract ABIs from existing smart contracts
-[ ] Create test environment with contract deployments
+### Next Steps (Previous Task - Now Superseded)
+[ ] Create AboutUsSection highlighting NYU Hackathon win -> Check if exists, update with KSA focus
+[ ] Implement newsletter signup functionality -> Check if exists
+[ ] Optimize images and assets for performance -> Review after rebranding
+[ ] Add analytics integration -> Future task
+[ ] Prepare for deployment -> After rebranding updates

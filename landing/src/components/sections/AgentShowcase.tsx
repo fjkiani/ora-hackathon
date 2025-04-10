@@ -1,20 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 
-interface AgentMetric {
-  label: string;
-  value: string | number;
-  unit?: string;
-}
-
 interface Agent {
   id: string;
   name: string;
   type: string;
   status: 'active' | 'paused' | 'error';
   protocols: string[];
-  description: string;
-  metrics: AgentMetric[];
+  problemStatement: string;
+  howItWorksCompliant: string;
+  keyBenefits: string;
 }
 
 export default function AgentShowcase() {
@@ -22,42 +17,33 @@ export default function AgentShowcase() {
   const [agents] = useState<Agent[]>([
     {
       id: 'agent-001',
-      name: 'ETH/USDC Risk Monitor',
-      type: 'Risk Assessment',
+      name: 'Halal Asset Screener',
+      type: 'Compliance Monitoring',
       status: 'active',
-      protocols: ['Uniswap V3', 'Aave'],
-      description: 'Monitors ETH/USDC liquidity pools for risk factors and provides real-time alerts on market conditions.',
-      metrics: [
-        { label: 'Transactions Monitored', value: 1245 },
-        { label: 'Alerts Generated', value: 8 },
-        { label: 'Success Rate', value: 99.2, unit: '%' }
-      ]
+      protocols: ['Cross-Chain Data Feeds', 'AAOIFI Standards API'],
+      problemStatement: 'Ensuring investments align with Sharia principles is complex and time-consuming, requiring constant monitoring of assets against specific criteria (e.g., avoiding businesses involved in prohibited activities, checking debt levels).',
+      howItWorksCompliant: 'This agent utilizes real-time data feeds and pre-defined Sharia screening parameters (based on standards like AAOIFI) to automatically analyze assets. It checks business activities, financial ratios (like debt-to-equity), and other relevant factors to flag potentially non-compliant assets, without engaging in prohibited speculation (Maysir) or excessive uncertainty (Gharar).',
+      keyBenefits: 'Automates compliance checks, reduces manual effort, provides peace of mind, helps maintain a Sharia-compliant portfolio, provides clear flags for review.',
     },
     {
       id: 'agent-002',
-      name: 'BTC/ETH Yield Optimizer',
-      type: 'Yield Strategy',
-      status: 'paused',
-      protocols: ['Curve', 'Convex', 'Yearn'],
-      description: 'Automatically rebalances BTC/ETH positions across protocols to maximize yield while managing risk exposure.',
-      metrics: [
-        { label: 'Transactions Executed', value: 28 },
-        { label: 'Yield Generated', value: 3.4, unit: '%' },
-        { label: 'Gas Optimization', value: 12.5, unit: '%' }
-      ]
+      name: 'Profit-Sharing Pool Manager',
+      type: 'Compliant Yield Generation',
+      status: 'active',
+      protocols: ['DefiKSA Compliant Pools', 'Verified DEXs'],
+      problemStatement: 'Generating returns in DeFi often involves interest (Riba)-based lending/borrowing or liquidity provision in pools with impermanent loss risk and unclear profit sources, which may not be Sharia-compliant.',
+      howItWorksCompliant: 'This agent interacts with vetted, Sharia-compliant pools designed around profit-and-loss sharing models (like Mudarabah or Musharakah). It allocates capital to ventures where profits are generated from permissible underlying economic activity (e.g., trading fees from compliant pairs, asset appreciation). It avoids interest and focuses on sharing actual business profits/losses according to agreed ratios.',
+      keyBenefits: 'Provides access to potentially compliant yield generation, avoids interest (Riba), promotes risk-sharing, aligns with Islamic finance principles, offers transparency into profit sources.',
     },
     {
       id: 'agent-003',
-      name: 'ORA/USDC Liquidity Manager',
-      type: 'Liquidity Management',
+      name: 'Zakat Calculation Assistant',
+      type: 'Financial Obligation Tool',
       status: 'active',
-      protocols: ['Balancer', 'Uniswap V3'],
-      description: 'Manages ORA/USDC liquidity positions by optimizing price ranges and fee collection strategies.',
-      metrics: [
-        { label: 'Rebalances', value: 12 },
-        { label: 'Fees Collected', value: 245.8, unit: 'USDC' },
-        { label: 'Impermanent Loss', value: -0.8, unit: '%' }
-      ]
+      protocols: ['Portfolio Tracker', 'Nisab Data Feed'],
+      problemStatement: 'Calculating Zakat accurately on diverse and fluctuating crypto assets can be challenging, requiring tracking asset types, hold times, and current market values against the Nisab threshold.',
+      howItWorksCompliant: 'This agent securely tracks your designated portfolio assets, identifies Zakat-eligible assets (based on type and holding period), retrieves current market values and the applicable Nisab value, and calculates the potential Zakat due. It can integrate with compliant distribution channels or provide clear reports, ensuring the calculation adheres to established Fiqh principles.',
+      keyBenefits: 'Simplifies Zakat calculation for crypto assets, improves accuracy, saves time, helps fulfill a religious obligation correctly, provides clear reporting for record-keeping or distribution.',
     }
   ]);
 
@@ -120,7 +106,7 @@ export default function AgentShowcase() {
           <span className="text-gradient-blue">AI Agents in Action</span>
         </h2>
         <p className="text-xl text-gray-300 text-center mb-16 max-w-3xl mx-auto">
-          See how our autonomous AI agents work 24/7 to monitor, optimize, and execute your crypto strategies.
+          Discover how DefiKSA's intelligent agents operate autonomously within Sharia guidelines to screen assets, manage portfolios, and execute compliant financial operations.
         </p>
 
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-8">
@@ -177,12 +163,33 @@ export default function AgentShowcase() {
                   </motion.div>
                 </div>
 
-                <p className="text-gray-300 mb-6">
-                  {currentAgent.description}
-                </p>
+                {/* Display Detailed Content Instead of Description/Metrics */}
+                <div className="space-y-6">
+                  <div>
+                    <h4 className="text-lg font-semibold mb-2 text-blue-400">The Problem</h4>
+                    <p className="text-gray-300 text-sm">
+                      {currentAgent.problemStatement}
+                    </p>
+                  </div>
+                  
+                  <div>
+                    <h4 className="text-lg font-semibold mb-2 text-blue-400">How it Works (Sharia-Compliant)</h4>
+                    <p className="text-gray-300 text-sm">
+                      {currentAgent.howItWorksCompliant}
+                    </p>
+                  </div>
+                  
+                  <div>
+                    <h4 className="text-lg font-semibold mb-2 text-blue-400">Key Benefits</h4>
+                    <p className="text-gray-300 text-sm">
+                      {currentAgent.keyBenefits}
+                    </p>
+                  </div>
+                </div>
 
-                <div className="mb-6">
-                  <h4 className="text-lg font-semibold mb-3">Protocols</h4>
+                {/* Keep Protocols Section */}
+                <div className="mt-6 mb-6">
+                  <h4 className="text-lg font-semibold mb-3">Integrates With</h4>
                   <div className="flex flex-wrap gap-2">
                     {currentAgent.protocols.map(protocol => (
                       <span 
@@ -195,37 +202,7 @@ export default function AgentShowcase() {
                   </div>
                 </div>
 
-                <h4 className="text-lg font-semibold mb-3">Performance Metrics</h4>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                  {currentAgent.metrics.map((metric, index) => (
-                    <div 
-                      key={index}
-                      className="bg-gradient-to-br from-gray-800/50 to-gray-900/50 p-4 rounded-lg text-center"
-                    >
-                      <div className="text-2xl font-bold text-blue-400">
-                        {typeof metric.value === 'number' ? metric.value.toFixed(1) : metric.value}
-                        {metric.unit}
-                      </div>
-                      <div className="text-sm text-gray-400 mt-1">
-                        {metric.label}
-                      </div>
-                    </div>
-                  ))}
-                </div>
-
-                <div className="mt-8 p-4 bg-blue-900/20 rounded-lg border border-blue-800/50">
-                  <div className="flex items-center mb-2">
-                    <svg className="h-5 w-5 text-blue-400 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
-                    <span className="font-medium">How it works</span>
-                  </div>
-                  <p className="text-sm text-gray-400">
-                    This AI agent autonomously monitors blockchain data, makes decisions based on market conditions, and executes strategies according to predefined parameters. All actions are verifiable on-chain and can be customized to your risk tolerance.
-                  </p>
-                </div>
-
-                <div className="mt-6 flex justify-center">
+                <div className="mt-8 flex justify-center">
                   <a 
                     href="https://app.cryptohedgefund.com" 
                     className="btn btn-primary inline-flex items-center"
@@ -243,7 +220,7 @@ export default function AgentShowcase() {
 
         <div className="mt-12 text-center">
           <p className="text-gray-400 text-sm mb-6 max-w-2xl mx-auto">
-            Our platform enables you to create, customize, and monitor AI agents that operate 24/7 on your behalf, executing strategies and managing risk while you retain full control.
+            The DefiKSA platform enables you to create, customize, and monitor AI agents designed to operate within Sharia principles, executing compliant strategies and managing risk 24/7 on your behalf.
           </p>
         </div>
       </div>

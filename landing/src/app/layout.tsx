@@ -15,9 +15,9 @@ const sourceCodePro = Source_Code_Pro({
 });
 
 export const metadata: Metadata = {
-  title: "AI-Powered Crypto Hedge Fund | Next Generation DeFi Platform",
-  description: "Our AI-powered crypto hedge fund delivers risk-optimized returns through advanced machine learning, ORA integration, and institutional-grade risk management.",
-  keywords: "crypto, hedge fund, AI, DeFi, ORA, investment, blockchain",
+  title: "DefiKSA | Intelligent Sharia-Compliant Financial Solutions",
+  description: "Discover DefiKSA: Leveraging AI and blockchain for secure, transparent, and Sharia-compliant financial solutions tailored for the KSA market.",
+  keywords: "DefiKSA, Sharia compliant, AI finance, KSA finance, blockchain, financial solutions, Islamic finance, Saudi Arabia",
 };
 
 export default function RootLayout({

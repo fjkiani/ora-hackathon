@@ -101,7 +101,7 @@ const WalletIntegrationPreview = () => {
           Seamless <span className="text-gradient-blue">Wallet Integration</span>
         </h2>
         <p className="text-xl text-gray-300 text-center mb-16 max-w-3xl mx-auto">
-          Connect your wallet with one click and manage your assets, view transactions, and interact with DeFi protocols all in one place.
+          Securely connect your preferred wallet with one click to manage assets, view transactions, and interact with the DefiKSA platform.
         </p>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
@@ -208,29 +208,69 @@ const WalletIntegrationPreview = () => {
             
             <h4 className="font-medium text-sm mb-3">Recent Transactions</h4>
             <div className="space-y-2">
-              {connectedData.recentTransactions.map((tx, index) => (
-                <motion.div 
-                  key={tx.id}
+              <motion.div 
+                  key={1}
                   className="p-2 hover:bg-gray-800/80 rounded-lg transition-colors"
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.3 + (index * 0.1) }}
+                  transition={{ delay: 0.3 + (0 * 0.1) }}
                 >
                   <div className="flex justify-between mb-1">
                     <div className="flex items-center">
-                      <div className="font-medium">{tx.type}</div>
-                      <div className="ml-2 px-2 py-0.5 bg-gray-700 rounded text-xs">{tx.protocol}</div>
+                      <div className="font-medium">Approve</div>
+                      <div className="ml-2 px-2 py-0.5 bg-gray-700 rounded text-xs">Compliant Pool</div>
                     </div>
-                    <div className="text-xs text-gray-400">{tx.time}</div>
+                    <div className="text-xs text-gray-400">15m ago</div>
                   </div>
                   <div className="flex justify-between">
-                    <div className="text-sm text-gray-400">{tx.asset}</div>
+                    <div className="text-sm text-gray-400">SAR Stablecoin</div>
                     <a className="text-xs text-blue-400 hover:text-blue-300">
-                      {tx.hash} ↗
+                      0xab12...ef34 ↗
                     </a>
                   </div>
-                </motion.div>
-              ))}
+              </motion.div>
+              <motion.div 
+                  key={2}
+                  className="p-2 hover:bg-gray-800/80 rounded-lg transition-colors"
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.3 + (1 * 0.1) }}
+                >
+                  <div className="flex justify-between mb-1">
+                    <div className="flex items-center">
+                      <div className="font-medium">Swap</div>
+                      <div className="ml-2 px-2 py-0.5 bg-gray-700 rounded text-xs">Compliant DEX</div>
+                    </div>
+                    <div className="text-xs text-gray-400">1h ago</div>
+                  </div>
+                  <div className="flex justify-between">
+                    <div className="text-sm text-gray-400">Asset A → Asset B</div>
+                    <a className="text-xs text-blue-400 hover:text-blue-300">
+                      0xcd34...gh56 ↗
+                    </a>
+                  </div>
+              </motion.div>
+              <motion.div 
+                  key={3}
+                  className="p-2 hover:bg-gray-800/80 rounded-lg transition-colors"
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.3 + (2 * 0.1) }}
+                >
+                  <div className="flex justify-between mb-1">
+                    <div className="flex items-center">
+                      <div className="font-medium">Deposit</div>
+                      <div className="ml-2 px-2 py-0.5 bg-gray-700 rounded text-xs">Mudarabah Pool</div>
+                    </div>
+                    <div className="text-xs text-gray-400">3h ago</div>
+                  </div>
+                  <div className="flex justify-between">
+                    <div className="text-sm text-gray-400">USDC</div>
+                    <a className="text-xs text-blue-400 hover:text-blue-300">
+                      0xef56...ij78 ↗
+                    </a>
+                  </div>
+              </motion.div>
             </div>
           </div>
         </div>

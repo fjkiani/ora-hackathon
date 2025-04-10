@@ -17,56 +17,58 @@ const RoadmapSection = () => {
       id: 'phase-1',
       phase: 'Phase 1',
       title: 'Foundation',
-      description: 'Establishing the core infrastructure and initial AI models',
+      description: 'Establishing the core infrastructure, Sharia compliance framework, and initial AI models.',
       status: 'completed',
       items: [
         'Core platform development',
-        'Initial AI risk assessment models',
-        'Smart contract audits',
-        'Testnet deployment',
-        'Seed funding round',
+        'Sharia screening engine v1',
+        'Establish Sharia advisory board',
+        'Compliant portfolio tracking',
+        'Initial AI monitoring agents',
+        'Testnet deployment (KSA focus)',
+        '(Context: NYU Hackathon Winner)',
       ],
     },
     {
       id: 'phase-2',
       phase: 'Phase 2',
-      title: 'Expansion',
-      description: 'Enhancing AI capabilities and launching governance token',
+      title: 'Compliance & Expansion',
+      description: 'Enhancing compliance engine, expanding protocol support, and launching governance.',
       status: 'in-progress',
       items: [
-        'Advanced AI investment strategies',
-        'ORA protocol integration',
+        'Refined compliance engine (Advisory board input)',
+        'Integrate verified compliant protocols/pools',
         'Governance token launch',
-        'DAO establishment',
-        'Strategic partnerships',
+        'Initial DAO voting (Compliance parameters)',
+        'Basic cross-border payment agent (POC)',
       ],
     },
     {
       id: 'phase-3',
       phase: 'Phase 3',
-      title: 'Evolution',
-      description: 'Implementing autonomous investment agents and decentralized governance',
+      title: 'Intelligence & Payments',
+      description: 'Deploying advanced compliant agents and expanding payment capabilities.',
       status: 'upcoming',
       items: [
-        'Autonomous investment agents',
-        'Decentralized risk assessment',
-        'Cross-chain expansion',
-        'Third-party integrations',
-        'Developer grants program',
+        'Advanced autonomous agents (Profit-sharing, Zakat)',
+        'Expanded payment agent features (FX, Multi-currency)',
+        'Full decentralized governance implementation',
+        'Cross-chain compliant strategies',
+        'Initial KSA partnerships',
       ],
     },
     {
       id: 'phase-4',
       phase: 'Phase 4',
-      title: 'Maturity',
-      description: 'Reaching full decentralization and advanced AI capabilities',
+      title: 'Ecosystem Growth',
+      description: 'Achieving wider adoption, institutional integration, and continuous innovation.',
       status: 'upcoming',
       items: [
-        'Full protocol decentralization',
-        'Advanced predictive analytics',
-        'Institutional-grade products',
-        'Global regulatory compliance',
-        'AI model marketplace',
+        'Institutional partnerships (KSA Banks/Finance)',
+        'Compliance certifications/audits',
+        'Integration with Islamic finance ecosystem',
+        'Advanced predictive compliance analytics',
+        'Expand compliant product offerings',
       ],
     },
   ];
@@ -187,7 +189,7 @@ const RoadmapSection = () => {
               <div className="bg-blue-900/20 px-6 py-3 rounded-lg text-center max-w-xl">
                 <h3 className="text-xl font-bold mb-2">Future Development</h3>
                 <p className="text-gray-400">
-                  Our roadmap will continue to evolve based on community feedback, technological advancements, and market opportunities.
+                  Our roadmap prioritizes Sharia compliance, user security, and KSA market needs, evolving with community feedback and regulatory guidance.
                 </p>
               </div>
             </div>

@@ -114,8 +114,12 @@ export default function Home() {
     };
   }, [scrolled, activeSection]);
 
-  // Helper function to determine if a nav link should be active
-  const isActive = (section: string) => activeSection === section;
+  // Function to check if a section is active
+  const isActive = (section: string) => {
+    const element = document.getElementById(section);
+    if (!element) return false;
+    return activeSection === section;
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-900 via-blue-900 to-gray-900 overflow-hidden">
@@ -140,11 +144,11 @@ export default function Home() {
             <div className="flex items-center">
               <Link href="/" className="flex items-center space-x-3 group">
                 <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center shadow-lg shadow-blue-500/20 transition-transform duration-300 group-hover:scale-110">
-                  <span className="text-white font-bold text-xl">CH</span>
+                  <span className="text-white font-bold text-xl">DK</span>
                 </div>
                 <div className="flex flex-col">
-                  <span className="text-xl font-bold text-white">CryptoHedgeFund</span>
-                  <span className="text-xs text-blue-400 font-medium -mt-1">AI-Powered Investment</span>
+                  <span className="text-xl font-bold text-white">DefiKSA</span>
+                  <span className="text-xs text-blue-400 font-medium -mt-1">Intelligent Sharia-Compliant Financial Solutions</span>
                 </div>
               </Link>
             </div>
@@ -231,14 +235,16 @@ export default function Home() {
         <div className="max-w-7xl mx-auto">
           <div className="text-center">
             <h1 className="text-4xl md:text-6xl font-bold mb-6 animate-fadeIn">
-              AI-Powered <span className="text-gradient-blue">Crypto Hedge Fund</span>
+              DefiKSA: <span className="text-gradient-blue">Intelligent</span> <span className="text-gradient-purple">Sharia-Compliant</span><br/> Financial Solutions
             </h1>
             <p className="text-xl md:text-2xl text-gray-300 mb-10 max-w-3xl mx-auto animate-slideUp">
-              Leverage advanced AI algorithms and smart contract technology for institutional-grade risk management and optimized returns.
+              Leveraging AI and blockchain for secure, transparent financial solutions tailored for the KSA market, designed with Sharia principles in mind.
             </p>
             <div className="flex flex-col sm:flex-row justify-center gap-4 animate-fadeIn">
               <a 
-                href="https://app.cryptohedgefund.com" 
+                href="https://app.cryptohedgefund.com"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="btn btn-primary shadow-xl hover:shadow-blue-600/20"
               >
                 Launch Application
@@ -260,9 +266,9 @@ export default function Home() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
                 </svg>
               </div>
-              <h3 className="text-xl font-bold mb-3">Traditional Finance</h3>
+              <h3 className="text-xl font-bold mb-3">Proven Financial Principles</h3>
               <p className="text-gray-300">
-                Our platform incorporates institutional-grade risk management principles from traditional finance, providing the reliability and security that serious investors expect.
+                DefiKSA integrates established risk management and financial structuring principles, adapted for Sharia compliance, ensuring reliability and security.
               </p>
             </div>
             
@@ -272,9 +278,9 @@ export default function Home() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                 </svg>
               </div>
-              <h3 className="text-xl font-bold mb-3">Intelligent AI System</h3>
+              <h3 className="text-xl font-bold mb-3">Intelligent AI Engine</h3>
               <p className="text-gray-300">
-                At the core of our platform is an intelligent system where AI agents autonomously interact with blockchain networks to execute complex financial strategies and adapt to market conditions.
+                Our AI engine powers autonomous agents that operate within Sharia guidelines, analyzing data, managing compliance, and executing permissible financial operations efficiently.
               </p>
             </div>
             
@@ -365,7 +371,9 @@ export default function Home() {
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-6">
             <a 
-              href="https://app.cryptohedgefund.com" 
+              href="https://app.cryptohedgefund.com"
+              target="_blank"
+              rel="noopener noreferrer"
               className="bg-white hover:bg-gray-100 text-blue-600 px-8 py-4 rounded-lg font-bold text-lg transition-colors inline-block shadow-xl hover:shadow-white/20"
             >
               Launch Application
@@ -390,9 +398,9 @@ export default function Home() {
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-10">
             <div>
-              <h3 className="font-bold text-xl mb-5">CryptoHedgeFund</h3>
+              <h3 className="font-bold text-xl mb-5">DefiKSA</h3>
               <p className="text-gray-400 mb-6">
-                AI-powered crypto investment platform with advanced risk management and optimized returns.
+                DefiKSA provides intelligent, Sharia-compliant financial solutions powered by AI and blockchain technology, tailored for the KSA market.
               </p>
               <div className="flex space-x-4">
                 <a href="#" className="text-gray-400 hover:text-white transition-colors">
@@ -440,7 +448,7 @@ export default function Home() {
           </div>
           <div className="border-t border-gray-800 mt-12 pt-8 text-center">
             <p className="text-gray-500">
-              &copy; {new Date().getFullYear()} CryptoHedgeFund. All rights reserved.
+              &copy; {new Date().getFullYear()} DefiKSA. All rights reserved.
             </p>
           </div>
         </div>
