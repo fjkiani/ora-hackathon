@@ -26,6 +26,10 @@ const AboutUsSection = dynamic(() => import('@/components/sections/AboutUsSectio
   loading: () => <div className="py-20 text-center">Loading about us information...</div>,
 });
 
+const TeamSection = dynamic(() => import('@/components/sections/TeamSection'), {
+  loading: () => <div className="py-20 text-center">Loading team information...</div>,
+});
+
 const WhitepaperPreview = dynamic(() => import('@/components/WhitepaperPreview'), {
   loading: () => <div className="py-20 text-center">Loading whitepaper preview...</div>,
 });
@@ -74,7 +78,8 @@ export default function Home() {
         'monitoring',
         'wallet',
         'tokenomics',
-        'roadmap'
+        'roadmap',
+        'team'
       ];
       
       // Find the section that is currently most visible in the viewport
@@ -148,7 +153,7 @@ export default function Home() {
                 </div>
                 <div className="flex flex-col">
                   <span className="text-xl font-bold text-white">DefiKSA</span>
-                  <span className="text-xs text-blue-400 font-medium -mt-1">Intelligent Sharia-Compliant Financial Solutions</span>
+                  
                 </div>
               </Link>
             </div>
@@ -167,7 +172,7 @@ export default function Home() {
                     Technology
                   </Link>
                   <Link href="#agents" className={`nav-link px-4 py-2 rounded-full text-sm font-medium ${isActive('agents') ? 'text-white bg-gray-700/50' : 'hover:text-white hover:bg-gray-700/50 transition-all duration-200'}`}>
-                    AI Agents
+                    Agents
                   </Link>
                   <div className="group relative">
                     <button className={`nav-link px-4 py-2 rounded-full text-sm font-medium ${isActive('strategy') ? 'text-white bg-gray-700/50' : 'hover:text-white hover:bg-gray-700/50 transition-all duration-200 flex items-center'}`}>
@@ -193,6 +198,9 @@ export default function Home() {
                   </Link>
                   <Link href="#roadmap" className={`nav-link px-4 py-2 rounded-full text-sm font-medium ${isActive('roadmap') ? 'text-white bg-gray-700/50' : 'hover:text-white hover:bg-gray-700/50 transition-all duration-200'}`}>
                     Roadmap
+                  </Link>
+                  <Link href="#team" className={`nav-link px-4 py-2 rounded-full text-sm font-medium ${isActive('team') ? 'text-white bg-gray-700/50' : 'hover:text-white hover:bg-gray-700/50 transition-all duration-200'}`}>
+                    Team
                   </Link>
                 </div>
               </div>
@@ -355,6 +363,13 @@ export default function Home() {
         <AboutUsSection />
       </section>
       
+      {/* Team Section */}
+      <section id="team">
+        <Suspense fallback={<div className="py-20 text-center">Loading Team...</div>}>
+          <TeamSection />
+        </Suspense>
+      </section>
+      
       {/* Whitepaper Preview */}
       <section id="whitepaper">
         <WhitepaperPreview />
@@ -427,6 +442,7 @@ export default function Home() {
                 <li><Link href="#features" className="text-gray-400 hover:text-white transition-colors">Features</Link></li>
                 <li><Link href="#technology" className="text-gray-400 hover:text-white transition-colors">Technology</Link></li>
                 <li><Link href="#roadmap" className="text-gray-400 hover:text-white transition-colors">Roadmap</Link></li>
+                <li><Link href="#team" className="text-gray-400 hover:text-white transition-colors">Team</Link></li>
               </ul>
             </div>
             <div>
