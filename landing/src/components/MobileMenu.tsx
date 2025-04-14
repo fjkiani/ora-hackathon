@@ -69,7 +69,7 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose }) => {
         <nav className="flex flex-col text-lg">
           <div className="bg-gray-800/30 backdrop-blur-sm rounded-xl border border-gray-700/50 shadow-inner shadow-black/10 mb-4 divide-y divide-gray-700/30">
             <Link 
-              href="#about" 
+              href="/about"
               className="text-white hover:text-blue-400 transition-colors py-4 px-5 flex items-center rounded-t-xl hover:bg-gray-800/50"
               onClick={onClose}
             >
@@ -79,7 +79,7 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose }) => {
               About
             </Link>
             <Link 
-              href="#features" 
+              href="/features"
               className="text-white hover:text-blue-400 transition-colors py-4 px-5 flex items-center hover:bg-gray-800/50"
               onClick={onClose}
             >
@@ -89,7 +89,7 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose }) => {
               Features
             </Link>
             <Link 
-              href="#technology" 
+              href="/technology"
               className="text-white hover:text-blue-400 transition-colors py-4 px-5 flex items-center hover:bg-gray-800/50"
               onClick={onClose}
             >
@@ -99,7 +99,7 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose }) => {
               Technology
             </Link>
             <Link 
-              href="#agents" 
+              href="/agents"
               className="text-white hover:text-blue-400 transition-colors py-4 px-5 flex items-center hover:bg-gray-800/50"
               onClick={onClose}
             >
@@ -120,30 +120,16 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose }) => {
               </summary>
               <div className="pl-12 bg-gray-800/30">
                 <Link 
-                  href="#strategy" 
+                  href="/platform"
                   className="block py-3 text-gray-300 hover:text-blue-400 border-t border-gray-700/20"
                   onClick={onClose}
                 >
-                  Strategy Builder
-                </Link>
-                <Link 
-                  href="#monitoring" 
-                  className="block py-3 text-gray-300 hover:text-blue-400 border-t border-gray-700/20"
-                  onClick={onClose}
-                >
-                  Protocol Monitoring
-                </Link>
-                <Link 
-                  href="#wallet" 
-                  className="block py-3 text-gray-300 hover:text-blue-400 border-t border-gray-700/20"
-                  onClick={onClose}
-                >
-                  Wallet Integration
+                  Overview
                 </Link>
               </div>
             </details>
             <Link 
-              href="#tokenomics" 
+              href="/tokenomics"
               className="text-white hover:text-blue-400 transition-colors py-4 px-5 flex items-center hover:bg-gray-800/50"
               onClick={onClose}
             >
@@ -153,7 +139,7 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose }) => {
               Tokenomics
             </Link>
             <Link 
-              href="#roadmap" 
+              href="/roadmap"
               className="text-white hover:text-blue-400 transition-colors py-4 px-5 flex items-center hover:bg-gray-800/50"
               onClick={onClose}
             >
@@ -163,7 +149,7 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose }) => {
               Roadmap
             </Link>
             <Link 
-              href="#team" 
+              href="/team"
               className="text-white hover:text-blue-400 transition-colors py-4 px-5 flex items-center rounded-b-xl hover:bg-gray-800/50"
               onClick={onClose}
             >

@@ -108,23 +108,69 @@ If needed, you can further use the `web_scraper.py` file to scrape the web page 
 
 # Scratchpad
 
-## Current Task: Rebrand Landing Page to DefiKSA.org
-[ ] Update branding elements (logo, name) across the landing page
-[ ] Refocus messaging for Saudi Arabian (KSA) market
-[ ] Review content for alignment with Sharia compliance principles (initial pass)
-[ ] Potentially hint at future cross-border payment functionality
+## Current Task: Rebrand Landing Page to DefiKSA.org (Landing Page - Phase 1)
+[X] Phase 1: Layout & Home Page Refactor
+[X] Phase 2: Create New Pages
+[X] Phase 3: Update Navigation & Links
+[X] Phase 4: Update README.md
 
-## Sub-Tasks:
-[X] Identify specific files in `landing/src/` needing updates (e.g., components, assets)
-[X] Gather new logo file and specific text/messaging changes from user (Using placeholders for now)
-[X] Implement logo replacement (Using text placeholder DK)
-[X] Implement text and messaging updates in relevant sections (Hero, Footer, Metadata)
-[X] Implement text updates in Agent Showcase title/description
-[ ] Implement detailed explanations for Agent Showcase examples
-[ ] Update other sections (Features, Tech, Tokenomics) with new branding/messaging
-[ ] Adjust styling (colors?) if needed for new brand identity
-[ ] Review changes
-[ ] Update READMEs
+## New Task: Rebrand & Adapt Main Application (Frontend - Phase 2)
+[ ] Goal: Adapt the existing React application in `frontend/` to align with DefiKSA branding, messaging, and Sharia compliance requirements.
+
+### Frontend Sub-Tasks (Iterative Approach):
+[ ] **1. Initial Exploration & Analysis (Completed)**
+    [X] List top-level directory contents (`frontend/`)
+    [X] Analyze `package.json` for dependencies (React, Router, Tailwind, Chart.js, Covalent)
+    [X] List `src/` directory contents
+    [X] List `src/components/` contents
+    [X] Initial assessment of components needing changes
+
+[ ] **2. Branding Updates**
+    [ ] Check `frontend/public/` for logos, favicons, `index.html` title.
+    [ ] Update logo/name in `frontend/src/components/Navbar.js`.
+    [ ] Review `frontend/src/components/DashboardLayout.js` for branding.
+    [ ] (Optional) Review CSS (`App.css`, component CSS) for potential color scheme changes.
+
+[ ] **3. Component Content & Logic Updates (Iterative)**
+    *   Prioritize core user-facing components. For each component:
+        *   Read component code.
+        *   Update text/messaging for DefiKSA & KSA market.
+        *   Integrate Sharia compliance logic/checks where applicable (e.g., Risk Assessment, Protocol Monitoring, Agent Creation).
+    [ ] `Dashboard.js`
+    [ ] `RiskAssessment.js`
+    [ ] `ProtocolMonitoringDashboard.js`
+    [ ] `AgentCreationInterface.js`
+        [ ] **Sub-Task: Read Code (Completed)**
+        [ ] **Sub-Task: Implement DefiKSA Changes**
+            [ ] Title: Change "Create ORA Agent" to "Create Compliant AI Agent".
+            [ ] Text/Placeholders: Update agent name, protocol, and description placeholders for compliance focus.
+            [ ] Agent Types: Rename types ("Risk Assessment" -> "Compliance & Risk", "Investment Advisor" -> "Compliant Strategy Advisor"). Confirm adding "Sharia Compliance Monitor".
+            [ ] Protocol Input: Add helper text "Enter vetted, Sharia-compliant protocols only." (Ideal: Filtered list - deferred).
+            [ ] Claude Suggestions: Revise mock suggestions for compliance focus (Deferred pending detailed input).
+            [ ] Creation Button: Change text to "Create Compliant Agent".
+            [ ] Success Message: Update title and note to emphasize compliance.
+    [ ] `StrategyBuilder.js`
+    [ ] `PortfolioAnalyzer.js`
+    [ ] `TransactionLogs.js`
+    [ ] `ClaudeAssistant.js` (Prompts, context)
+    [ ] `InteractiveTutorial.js`
+    [ ] `SwapInterface.js` (If applicable)
+    [ ] ... (Review others as needed)
+
+[ ] **4. Service Layer Review**
+    [ ] Explore `frontend/src/services/`.
+    [ ] Identify API calls (Covalent, backend).
+    [ ] Assess need for new APIs/data sources for Sharia compliance data.
+    [ ] Update service functions as required.
+
+[ ] **5. Final Review & Testing**
+
+---
+*Remaining Landing Page Rebranding Sub-Tasks (Lower Priority for now):*
+[ ] Implement detailed explanations for Agent Showcase examples in `landing/`
+[ ] Update other sections (Features, Tech, Tokenomics) in `landing/` with new branding/messaging
+[ ] Adjust styling (colors?) in `landing/` if needed for new brand identity
+[ ] Review all `landing/` changes
 
 ## Rebranding Notes (DefiKSA) - Landing Page Focus
 

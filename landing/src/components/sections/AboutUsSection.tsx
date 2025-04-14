@@ -11,10 +11,10 @@ const AboutUsSection = () => {
             🏆 NYU Hackathon Winner
           </span>
           <h2 className="text-3xl md:text-4xl font-bold mb-6">
-            Pioneering <span className="text-gradient-blue">Intelligent Compliant Finance</span> for <span className="text-gradient-purple">KSA</span>
+            Bridging <span className="text-gradient-blue">Traditional Finance</span> and <span className="text-gradient-purple">DeFi</span>
           </h2>
           <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-            DefiKSA provides intelligent, Sharia-compliant financial solutions powered by AI and blockchain, specifically tailored for the needs of the Saudi Arabian market.
+            Our platform brings institutional-grade risk management to decentralized finance through AI-powered agents that autonomously interact with blockchain networks.
           </p>
         </div>
 
@@ -22,10 +22,10 @@ const AboutUsSection = () => {
           <div>
             <h3 className="text-2xl font-bold mb-6">Our Mission</h3>
             <p className="text-gray-300 mb-6">
-              Our mission is to leverage cutting-edge AI and blockchain technology to build a secure, transparent, and efficient intelligent financial ecosystem, fully aligned with Sharia principles.
+              We're pioneering the integration of artificial intelligence and blockchain technologies to create a secure, transparent, and accessible financial ecosystem that empowers users while significantly reducing the typical risks associated with DeFi.
             </p>
             <p className="text-gray-300">
-              Using the verifiable ORA Framework, our AI agents execute financial tasks autonomously while adhering to strict compliance rules, offering users unparalleled control and peace of mind.
+              Through our innovative ORA Framework, we enable AI agents to autonomously interact with blockchain networks, executing complex financial strategies while providing unparalleled visibility and control to users.
             </p>
           </div>
           <div className="glass-dark p-8 rounded-xl relative overflow-hidden">
@@ -39,7 +39,7 @@ const AboutUsSection = () => {
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
                     </svg>
                   </div>
-                  <span>Navigating the complexity of Sharia compliance in digital finance.</span>
+                  <span>Reducing technical barriers to DeFi interaction</span>
                 </li>
                 <li className="flex items-start">
                   <div className="bg-blue-600 rounded-full p-1 mt-1 mr-3">
@@ -47,7 +47,7 @@ const AboutUsSection = () => {
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
                     </svg>
                   </div>
-                  <span>Lack of transparent and verifiable Islamic financial tools.</span>
+                  <span>Providing risk management tools for DeFi investments</span>
                 </li>
                 <li className="flex items-start">
                   <div className="bg-blue-600 rounded-full p-1 mt-1 mr-3">
@@ -55,7 +55,7 @@ const AboutUsSection = () => {
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
                     </svg>
                   </div>
-                  <span>Need for efficient and secure financial management tailored for KSA.</span>
+                  <span>Offering clear visualization of AI agents on blockchain</span>
                 </li>
                 <li className="flex items-start">
                   <div className="bg-blue-600 rounded-full p-1 mt-1 mr-3">
@@ -63,25 +63,25 @@ const AboutUsSection = () => {
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
                     </svg>
                   </div>
-                  <span>Difficulty accessing permissible digital financial opportunities.</span>
+                  <span>Ensuring secure, verifiable AI-driven transactions</span>
                 </li>
               </ul>
             </div>
           </div>
         </div>
 
-        {/* Agent Walkthrough Section (updated titles and text) */}
+        {/* Agent Walkthrough Section (replacing Technical Approach) */}
         <div className="mb-16">
           <h3 className="text-2xl font-bold mb-8 text-center">
-            <span className="text-gradient-blue">Your Journey with Compliant AI Agents</span>
+            <span className="text-gradient-blue">Your Journey with AI Agents</span>
           </h3>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="glass-dark rounded-xl p-8 transform hover:-translate-y-2 transition-transform duration-300 relative">
               <div className="absolute -top-5 -left-5 w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center text-xl font-bold">1</div>
-              <h4 className="text-xl font-bold mb-4 mt-2">Define Compliant Goals</h4>
+              <h4 className="text-xl font-bold mb-4 mt-2">Create Your Agent</h4>
               <p className="text-gray-300 mb-4">
-                Design your personalized AI agent by selecting permissible assets, setting Sharia-compliant risk parameters, and defining compliant financial objectives. No coding required.
+                Design your personalized AI agent by selecting protocols, setting risk parameters, and defining investment strategies. No coding required.
               </p>
               <div className="mt-6 text-blue-400">
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-12 w-12 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -92,9 +92,9 @@ const AboutUsSection = () => {
             
             <div className="glass-dark rounded-xl p-8 transform hover:-translate-y-2 transition-transform duration-300 relative">
               <div className="absolute -top-5 -left-5 w-12 h-12 bg-purple-600 rounded-full flex items-center justify-center text-xl font-bold">2</div>
-              <h4 className="text-xl font-bold mb-4 mt-2">Monitor Compliance & Performance</h4>
+              <h4 className="text-xl font-bold mb-4 mt-2">Monitor Performance</h4>
               <p className="text-gray-300 mb-4">
-                Track your agent's actions, compliance status, and performance through an intuitive dashboard. Get real-time notifications about important events and compliance alerts.
+                Track your agent's actions, transactions, and performance through an intuitive dashboard. Get real-time notifications about important events and risk alerts.
               </p>
               <div className="mt-6 text-purple-400">
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-12 w-12 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -105,9 +105,9 @@ const AboutUsSection = () => {
             
             <div className="glass-dark rounded-xl p-8 transform hover:-translate-y-2 transition-transform duration-300 relative">
               <div className="absolute -top-5 -left-5 w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center text-xl font-bold">3</div>
-              <h4 className="text-xl font-bold mb-4 mt-2">Optimize within Guidelines</h4>
+              <h4 className="text-xl font-bold mb-4 mt-2">Optimize & Adapt</h4>
               <p className="text-gray-300 mb-4">
-                Receive AI-powered suggestions to improve your agent's strategy based on market conditions *and* Sharia guidelines. Implement adjustments with confidence.
+                Receive AI-powered suggestions to improve your agent's strategy based on changing market conditions. Implement adjustments with a few clicks.
               </p>
               <div className="mt-6 text-blue-400">
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-12 w-12 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -119,7 +119,7 @@ const AboutUsSection = () => {
           
           <div className="mt-10 text-center">
             <p className="text-gray-400 max-w-3xl mx-auto mb-6">
-              All agent actions are verifiable on-chain, providing complete transparency while our AI assistant helps you understand compliant finance concepts and market trends.
+              All agent actions are verifiable on-chain, providing complete transparency while our Claude AI assistant helps you understand complex DeFi concepts and market trends.
             </p>
             <Link 
               href="#agents"

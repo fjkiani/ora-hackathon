@@ -26,7 +26,7 @@ const RoadmapSection = () => {
         'Compliant portfolio tracking',
         'Initial AI monitoring agents',
         'Testnet deployment (KSA focus)',
-        '(Context: NYU Hackathon Winner)',
+        'NYU Hackathon Winner',
       ],
     },
     {
